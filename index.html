@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Numerology Aura Lab</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="background-glow" aria-hidden="true"></div>
+  <main class="app-container">
+    <section id="inputSection" class="panel input-panel">
+      <p class="eyebrow">BY VIPUL SOFTWARES</p>
+      <h1>KundaliMan</h1>
+      <p>Unlock deep personality patterns, life trends, love style, career direction, lucky elements, and your social-ready aura card.</p>
+      <form id="numerologyForm" class="dob-form">
+        <label for="nameInput">Name (optional)</label>
+        <input type="text" id="nameInput" placeholder="Your Name" maxlength="40" />
+        <label for="dobInput">Date of Birth</label>
+        <input type="date" id="dobInput" required />
+        <button type="submit">
+          <i class="fa-solid fa-wand-magic-sparkles"></i>
+          Reveal My Aura
+        </button>
+      </form>
+    </section>
+
+    <section id="loaderSection" class="panel loader-panel hidden">
+      <div class="loader"></div>
+      <p>Decoding your numerology blueprint...</p>
+    </section>
+
+    <section id="resultSection" class="panel result-panel hidden">
+      <div class="result-header">
+        <h2>Your Numerology Blueprint</h2>
+        <p id="numberSummary"></p>
+      </div>
+
+      <article id="combinedCard" class="insight-card combined-card"></article>
+
+      <section class="group-block">
+        <h3>Core Traits</h3>
+        <div id="coreGrid" class="prediction-grid"></div>
+      </section>
+
+      <section class="group-block">
+        <h3>Growth & Balance</h3>
+        <div id="growthGrid" class="prediction-grid"></div>
+      </section>
+
+      <section class="group-block">
+        <h3>Fortune & Spiritual Direction</h3>
+        <div id="fortuneGrid" class="prediction-grid"></div>
+      </section>
+
+      <section class="group-block">
+        <h3>Shareable Aura Card</h3>
+        <div id="shareCard" class="share-card"></div>
+        <button id="downloadBtn" class="download-btn">
+          <i class="fa-solid fa-download"></i>
+          Download My Card
+        </button>
+      </section>
+
+      <button id="resetBtn" class="reset-btn">
+        <i class="fa-solid fa-rotate-left"></i>
+        Try Another DOB
+      </button>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
