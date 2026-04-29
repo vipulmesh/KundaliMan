@@ -33,7 +33,7 @@ const sections = [
   { key: "lifeChallenges", title: "Life Challenges", icon: "fa-solid fa-mountain", type: "text", grid: "growth" },
   { key: "healthTendencies", title: "Health Tendencies", icon: "fa-solid fa-heart-pulse", type: "text", grid: "growth" },
   { key: "luckyElements", title: "Lucky Elements", icon: "fa-solid fa-clover", type: "luck", grid: "fortune" },
-  { key: "spiritualGuidance", title: "Spiritual Guidance", icon: "fa-solid fa-star-and-crescent", type: "spiritual", grid: "fortune" },
+  { key: "spiritualGuidance", title: "Spiritual Guidance", type: "spiritual", grid: "fortune" },
   { key: "practicalAdvice", title: "Practical Advice", icon: "fa-solid fa-lightbulb", type: "text", grid: "fortune" },
   { key: "lifePatternInsight", title: "Life Pattern Insight", icon: "fa-solid fa-chart-line", type: "text", grid: "fortune" }
 ];
