@@ -1,3 +1,99 @@
+/* ===========================
+   DARK / LIGHT MODE TOGGLE
+=========================== */
+const themeToggle = document.getElementById("themeToggle");
+const htmlEl = document.documentElement;
+
+function applyTheme(theme) {
+  htmlEl.setAttribute("data-theme", theme);
+  localStorage.setItem("km-theme", theme);
+}
+
+// Load saved theme
+const savedTheme = localStorage.getItem("km-theme") || "dark";
+applyTheme(savedTheme);
+
+themeToggle.addEventListener("click", () => {
+  const current = htmlEl.getAttribute("data-theme");
+  applyTheme(current === "dark" ? "light" : "dark");
+});
+
+/* ===========================
+   PAGE NAVIGATION
+=========================== */
+const homePage = document.getElementById("homePage");
+const aboutPage = document.getElementById("aboutPage");
+
+function showHome(e) {
+  e.preventDefault();
+  aboutPage.classList.remove("active");
+  homePage.classList.add("active");
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function showAbout(e) {
+  e.preventDefault();
+  homePage.classList.remove("active");
+  aboutPage.classList.add("active");
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+/* ===========================
+   PARTICLE CANVAS
+=========================== */
+const canvas = document.getElementById("particleCanvas");
+const ctx = canvas.getContext("2d");
+let particles = [];
+
+function resizeCanvas() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+
+function createParticles() {
+  particles = [];
+  const count = Math.floor((canvas.width * canvas.height) / 18000);
+  for (let i = 0; i < count; i++) {
+    particles.push({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      r: Math.random() * 1.5 + 0.4,
+      dx: (Math.random() - 0.5) * 0.25,
+      dy: (Math.random() - 0.5) * 0.25,
+      opacity: Math.random() * 0.5 + 0.1,
+      color: Math.random() > 0.5 ? "123,145,255" : "61,232,188"
+    });
+  }
+}
+
+function animateParticles() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  const isDark = htmlEl.getAttribute("data-theme") === "dark";
+  for (const p of particles) {
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(${p.color},${isDark ? p.opacity : p.opacity * 0.5})`;
+    ctx.fill();
+    p.x += p.dx;
+    p.y += p.dy;
+    if (p.x < 0 || p.x > canvas.width) p.dx *= -1;
+    if (p.y < 0 || p.y > canvas.height) p.dy *= -1;
+  }
+  requestAnimationFrame(animateParticles);
+}
+
+resizeCanvas();
+createParticles();
+animateParticles();
+
+window.addEventListener("resize", () => {
+  resizeCanvas();
+  createParticles();
+});
+
+/* ===========================
+   FORM ELEMENTS
+=========================== */
 const form = document.getElementById("numerologyForm");
 const nameInput = document.getElementById("nameInput");
 const dobInput = document.getElementById("dobInput");
@@ -12,7 +108,11 @@ const fortuneGrid = document.getElementById("fortuneGrid");
 const shareCard = document.getElementById("shareCard");
 const downloadBtn = document.getElementById("downloadBtn");
 const resetBtn = document.getElementById("resetBtn");
+const resetBtnTop = document.getElementById("resetBtnTop");
 
+/* ===========================
+   NUMEROLOGY DATA
+=========================== */
 const predictionJson = {
   1: { personalityTraits: { strengths: ["Decisive", "Bold", "Independent"], weaknesses: ["Impatient", "Dominating", "Ego-sensitive"] }, careerGuidance: { bestFields: ["Leadership", "Startups", "Management", "Politics"], workStyle: "Performs best with autonomy and clear goals.", risks: "Can burn bridges by moving too fast or controlling too much." }, loveRelationships: { behavior: "Protective and expressive, prefers clarity over mixed signals.", compatibilityTendency: "Attracted to emotionally stable partners who respect individuality." }, financialBehavior: { saving: "Moderate saver when focused on a major goal.", spending: "Spends confidently on status and performance.", riskTaking: "High risk appetite in business ideas." }, lifeChallenges: "Balancing confidence with humility, and authority with empathy.", healthTendencies: "Prone to stress headaches and sleep imbalance during overwork cycles.", luckyElements: { colors: ["Gold", "Crimson"], days: ["Sunday", "Monday"], numbers: [1, 10, 19] }, spiritualGuidance: { deity: "Surya (Sun) for vitality and confidence.", practices: ["Sunrise gratitude", "Breath discipline", "Daily intention journaling"] }, practicalAdvice: "Lead with vision, but include others early to reduce resistance.", lifePatternInsight: "Early breakthroughs come fast; stable recognition grows when patience matures." },
   2: { personalityTraits: { strengths: ["Diplomatic", "Empathetic", "Intuitive"], weaknesses: ["Overthinking", "People-pleasing", "Mood fluctuation"] }, careerGuidance: { bestFields: ["Counseling", "HR", "Design", "Partnership roles"], workStyle: "Collaborative, detail-aware, and emotionally intelligent.", risks: "May delay decisions or avoid conflict too long." }, loveRelationships: { behavior: "Nurturing and emotionally present, seeks emotional security.", compatibilityTendency: "Compatible with grounded communicators and patient partners." }, financialBehavior: { saving: "Careful saver, usually values stability.", spending: "Spends on comfort and family needs.", riskTaking: "Low-to-moderate risk preference." }, lifeChallenges: "Building self-trust and speaking up without fear of disapproval.", healthTendencies: "Sensitive nervous system; benefits from rest rhythm and hydration.", luckyElements: { colors: ["White", "Sky Blue"], days: ["Monday", "Friday"], numbers: [2, 11, 20] }, spiritualGuidance: { deity: "Chandra (Moon) for emotional steadiness.", practices: ["Moonlight walking", "Reflective journaling", "Soft mantra meditation"] }, practicalAdvice: "Set one boundary per week and protect your energy consistently.", lifePatternInsight: "Growth is gradual but dependable; major rewards come through partnerships." },
@@ -33,11 +133,14 @@ const sections = [
   { key: "lifeChallenges", title: "Life Challenges", icon: "fa-solid fa-mountain", type: "text", grid: "growth" },
   { key: "healthTendencies", title: "Health Tendencies", icon: "fa-solid fa-heart-pulse", type: "text", grid: "growth" },
   { key: "luckyElements", title: "Lucky Elements", icon: "fa-solid fa-clover", type: "luck", grid: "fortune" },
-  { key: "spiritualGuidance", title: "Spiritual Guidance", type: "spiritual", grid: "fortune" },
+  { key: "spiritualGuidance", title: "Spiritual Guidance", icon: "fa-solid fa-om", type: "spiritual", grid: "fortune" },
   { key: "practicalAdvice", title: "Practical Advice", icon: "fa-solid fa-lightbulb", type: "text", grid: "fortune" },
   { key: "lifePatternInsight", title: "Life Pattern Insight", icon: "fa-solid fa-chart-line", type: "text", grid: "fortune" }
 ];
 
+/* ===========================
+   NUMEROLOGY FUNCTIONS
+=========================== */
 function reduceToDigit(value) {
   let num = value;
   while (num > 9) {
@@ -98,9 +201,9 @@ function renderContent(section, value) {
   if (section.type === "luck") {
     return `
       <div class="pill-wrap">
-        ${value.colors.map((c) => `<span class="pill">Color: ${escapeHtml(c)}</span>`).join("")}
-        ${value.days.map((d) => `<span class="pill">Day: ${escapeHtml(d)}</span>`).join("")}
-        ${value.numbers.map((n) => `<span class="pill">No: ${n}</span>`).join("")}
+        ${value.colors.map((c) => `<span class="pill">🎨 ${escapeHtml(c)}</span>`).join("")}
+        ${value.days.map((d) => `<span class="pill">📅 ${escapeHtml(d)}</span>`).join("")}
+        ${value.numbers.map((n) => `<span class="pill">✦ ${n}</span>`).join("")}
       </div>
     `;
   }
@@ -115,7 +218,7 @@ function renderContent(section, value) {
 
 function createCardMarkup(section, value, index) {
   return `
-    <article class="insight-card ${section.featured ? "featured" : ""}" style="animation-delay:${index * 0.08}s">
+    <article class="insight-card ${section.featured ? "featured" : ""}" style="animation-delay:${index * 0.09}s">
       <div class="title-row">
         <i class="${section.icon}" aria-hidden="true"></i>
         <h4>${section.title}</h4>
@@ -127,26 +230,14 @@ function createCardMarkup(section, value, index) {
 
 function getIdentityLine(mulank, bhagyank) {
   const identityMap = {
-    1: "Born Leader",
-    2: "Harmonic Diplomat",
-    3: "Creative Communicator",
-    4: "Steady Architect",
-    5: "Dynamic Explorer",
-    6: "Heart-Centered Guardian",
-    7: "Mystic Analyst",
-    8: "Power Strategist",
-    9: "Compassionate Visionary"
+    1: "Born Leader", 2: "Harmonic Diplomat", 3: "Creative Communicator",
+    4: "Steady Architect", 5: "Dynamic Explorer", 6: "Heart-Centered Guardian",
+    7: "Mystic Analyst", 8: "Power Strategist", 9: "Compassionate Visionary"
   };
   const suffixMap = {
-    1: "with an Independent Core",
-    2: "with a Gentle Intuition",
-    3: "with a Joyful Voice",
-    4: "with a Grounded Mind",
-    5: "with a Free Spirit",
-    6: "with a Nurturing Aura",
-    7: "with a Reflective Soul",
-    8: "with an Executive Drive",
-    9: "with a Humanitarian Heart"
+    1: "with an Independent Core", 2: "with a Gentle Intuition", 3: "with a Joyful Voice",
+    4: "with a Grounded Mind", 5: "with a Free Spirit", 6: "with a Nurturing Aura",
+    7: "with a Reflective Soul", 8: "with an Executive Drive", 9: "with a Humanitarian Heart"
   };
   return `${identityMap[mulank]} ${suffixMap[bhagyank]}`;
 }
@@ -172,7 +263,6 @@ function buildCombinedInsight(mulank, bhagyank) {
   const opener = openers[(mulank + bhagyank) % openers.length];
   const bridge = bridges[(mulank * bhagyank) % bridges.length];
   const timing = timingHints[(mulank + bhagyank + 1) % timingHints.length];
-
   return `${opener} Mulank ${mulank} gives you ${m.personalityTraits.strengths[0].toLowerCase()} and ${m.personalityTraits.strengths[1].toLowerCase()} energy, while Bhagyank ${bhagyank} adds a life-path of ${b.lifePatternInsight.toLowerCase()} ${bridge} your ${m.careerGuidance.workStyle.toLowerCase()} and keep relationships rooted in ${b.loveRelationships.behavior.toLowerCase()}; ${timing}`;
 }
 
@@ -215,7 +305,7 @@ function renderShareCard(name, mulank, bhagyank, merged) {
     <div class="today-insight">
       <p><strong>Today's Insight:</strong> ${escapeHtml(todayInsight)}</p>
     </div>
-    <p class="watermark">Powered BY VIPUL SOFTWARES</p>
+    <p class="watermark">Made with ♥ by Vipul Meshram · KundaliMan v2.0.0</p>
   `;
 }
 
@@ -270,7 +360,7 @@ function renderPredictions(name, mulank, bhagyank) {
     if (section.grid === "fortune") fortuneGrid.insertAdjacentHTML("beforeend", markup);
   });
 
-  numberSummary.textContent = `Mulank ${mulank} | Bhagyank ${bhagyank}`;
+  numberSummary.textContent = `✦ Mulank ${mulank}  ·  Bhagyank ${bhagyank} ✦`;
   combinedCard.innerHTML = `
     <h3><i class="fa-solid fa-wand-magic-sparkles" aria-hidden="true"></i> Combined Insight Engine</h3>
     <p>${escapeHtml(buildCombinedInsight(mulank, bhagyank))}</p>
@@ -278,6 +368,26 @@ function renderPredictions(name, mulank, bhagyank) {
   renderShareCard(name, mulank, bhagyank, merged);
 }
 
+/* ===========================
+   ANIMATED LOADER STEPS
+=========================== */
+function runLoaderSteps() {
+  const steps = document.querySelectorAll(".step");
+  steps.forEach(s => s.classList.remove("active"));
+  steps[0].classList.add("active");
+  setTimeout(() => {
+    steps[0].classList.remove("active");
+    steps[1].classList.add("active");
+  }, 500);
+  setTimeout(() => {
+    steps[1].classList.remove("active");
+    steps[2].classList.add("active");
+  }, 950);
+}
+
+/* ===========================
+   PANEL TRANSITIONS
+=========================== */
 function swapPanels(fromEl, toEl) {
   fromEl.classList.add("fade-out");
   setTimeout(() => {
@@ -289,25 +399,31 @@ function swapPanels(fromEl, toEl) {
   }, 280);
 }
 
+/* ===========================
+   FORM SUBMIT
+=========================== */
 form.addEventListener("submit", (event) => {
   event.preventDefault();
   const dob = dobInput.value;
   if (!dob) return;
-
   const dobDate = new Date(dob);
   if (Number.isNaN(dobDate.getTime())) return;
-
   const name = nameInput.value || "Mystic Seeker";
   swapPanels(inputSection, loaderSection);
+  runLoaderSteps();
 
   setTimeout(() => {
     const mulank = calculateMulank(dobDate);
     const bhagyank = calculateBhagyank(dob);
     renderPredictions(name, mulank, bhagyank);
     swapPanels(loaderSection, resultSection);
-  }, 1200);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, 1300);
 });
 
+/* ===========================
+   DOWNLOAD CARD
+=========================== */
 downloadBtn.addEventListener("click", async () => {
   downloadBtn.disabled = true;
   downloadBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Preparing PNG...`;
@@ -318,7 +434,7 @@ downloadBtn.addEventListener("click", async () => {
       useCORS: true
     });
     const link = document.createElement("a");
-    link.download = "numerology-aura-card.png";
+    link.download = "kundali-aura-card.png";
     link.href = canvas.toDataURL("image/png");
     link.click();
   } finally {
@@ -327,7 +443,10 @@ downloadBtn.addEventListener("click", async () => {
   }
 });
 
-resetBtn.addEventListener("click", () => {
+/* ===========================
+   RESET
+=========================== */
+function doReset() {
   coreGrid.innerHTML = "";
   growthGrid.innerHTML = "";
   fortuneGrid.innerHTML = "";
@@ -337,4 +456,7 @@ resetBtn.addEventListener("click", () => {
   nameInput.value = "";
   dobInput.value = "";
   swapPanels(resultSection, inputSection);
-});
+}
+
+resetBtn.addEventListener("click", doReset);
+resetBtnTop.addEventListener("click", doReset);
