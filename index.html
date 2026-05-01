@@ -1,77 +1,235 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>KundaliMan</title>
+  <title>KundaliMan — Numerology Blueprint</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=DM+Sans:wght@300;400;500;600;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+
+  <!-- Particle canvas background -->
+  <canvas id="particleCanvas" aria-hidden="true"></canvas>
   <div class="background-glow" aria-hidden="true"></div>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="#" class="logo" onclick="showHome(event)">
+        <span class="logo-symbol">ॐ</span>
+        <span class="logo-text">KundaliMan</span>
+      </a>
+      <nav class="header-nav">
+        <a href="#" class="nav-link" onclick="showHome(event)">Home</a>
+        <a href="#" class="nav-link" onclick="showAbout(event)">About</a>
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle light/dark mode">
+          <span class="theme-icon dark-icon"><i class="fa-solid fa-moon"></i></span>
+          <span class="theme-icon light-icon"><i class="fa-solid fa-sun"></i></span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
   <main class="app-container">
-    <section id="inputSection" class="panel input-panel">
-      <p class="eyebrow">BY VIPUL SOFTWARES</p>
-      <h1>KundaliMan</h1>
-      <p>Unlock deep personality patterns, life trends, love style, career direction, lucky elements, and your social-ready aura card.</p>
-      <form id="numerologyForm" class="dob-form">
-        <label for="nameInput">Name (optional)</label>
-        <input type="text" id="nameInput" placeholder="Your Name" maxlength="40" />
-        <label for="dobInput">Date of Birth</label>
-        <input type="date" id="dobInput" required />
-        <button type="submit">
-          <i class="fa-solid fa-wand-magic-sparkles"></i>
-          Reveal My Aura
+
+    <!-- HOME / INPUT PAGE -->
+    <div id="homePage" class="page active">
+      <section id="inputSection" class="panel input-panel">
+        <div class="input-hero">
+          <div class="hero-badge">
+            <span class="star-icon">✦</span>
+            <span>Vedic Numerology Engine</span>
+            <span class="star-icon">✦</span>
+          </div>
+          <h1 class="hero-title">
+            <span class="title-line">Decode Your</span>
+            <span class="title-line accent-line">Cosmic Blueprint</span>
+          </h1>
+          <p class="hero-sub">Unlock deep personality patterns, life trends, love style, career direction, lucky elements, and your personal aura card — powered by ancient Vedic numerology.</p>
+        </div>
+
+        <form id="numerologyForm" class="dob-form">
+          <div class="form-field">
+            <label for="nameInput">
+              <i class="fa-solid fa-feather-pointed"></i>
+              Name <span class="optional-tag">optional</span>
+            </label>
+            <input type="text" id="nameInput" placeholder="Your Name" maxlength="40" />
+          </div>
+          <div class="form-field">
+            <label for="dobInput">
+              <i class="fa-solid fa-calendar-stars"></i>
+              Date of Birth
+            </label>
+            <input type="date" id="dobInput" required />
+          </div>
+          <button type="submit" class="submit-btn">
+            <span class="btn-shimmer"></span>
+            <i class="fa-solid fa-wand-magic-sparkles"></i>
+            Reveal My Aura
+          </button>
+        </form>
+
+        <div class="trust-strip">
+          <span><i class="fa-solid fa-lock"></i>We don't sale/save any data </span>
+          <span><i class="fa-solid fa-star"></i> Vedic Method</span>
+          <span><i class="fa-solid fa-infinity"></i> Instant Results</span>
+        </div>
+      </section>
+
+      <!-- LOADER -->
+      <section id="loaderSection" class="panel loader-panel hidden">
+        <div class="loader-ring">
+          <div class="ring r1"></div>
+          <div class="ring r2"></div>
+          <div class="ring r3"></div>
+          <div class="loader-symbol">☽</div>
+        </div>
+        <p class="loader-text">Decoding your numerology blueprint...</p>
+        <div class="loader-steps">
+          <span id="step1" class="step active">Calculating core numbers</span>
+          <span id="step2" class="step">Reading planetary alignments</span>
+          <span id="step3" class="step">Generating your aura card</span>
+        </div>
+      </section>
+
+      <!-- RESULTS -->
+      <section id="resultSection" class="panel result-panel hidden">
+        <div class="result-header">
+          <div class="result-title-row">
+            <h2>Your Numerology Blueprint</h2>
+            <button class="reset-btn-sm" id="resetBtnTop" title="Start over">
+              <i class="fa-solid fa-rotate-left"></i>
+            </button>
+          </div>
+          <p id="numberSummary" class="number-summary-pill"></p>
+        </div>
+
+        <article id="combinedCard" class="insight-card combined-card"></article>
+
+        <section class="group-block">
+          <h3 class="group-title"><i class="fa-solid fa-sparkles"></i> Core Traits</h3>
+          <div id="coreGrid" class="prediction-grid"></div>
+        </section>
+
+        <section class="group-block">
+          <h3 class="group-title"><i class="fa-solid fa-seedling"></i> Growth & Balance</h3>
+          <div id="growthGrid" class="prediction-grid"></div>
+        </section>
+
+        <section class="group-block">
+          <h3 class="group-title"><i class="fa-solid fa-star-and-crescent"></i> Fortune & Spiritual Direction</h3>
+          <div id="fortuneGrid" class="prediction-grid"></div>
+        </section>
+
+        <section class="group-block share-section">
+          <h3 class="group-title"><i class="fa-solid fa-share-nodes"></i> Shareable Aura Card</h3>
+          <div id="shareCard" class="share-card"></div>
+          <button id="downloadBtn" class="download-btn">
+            <i class="fa-solid fa-download"></i>
+            Download My Card
+          </button>
+        </section>
+
+        <button id="resetBtn" class="reset-btn">
+          <i class="fa-solid fa-rotate-left"></i>
+          Try Another DOB
         </button>
-      </form>
-    </section>
-
-    <section id="loaderSection" class="panel loader-panel hidden">
-      <div class="loader"></div>
-      <p>Decoding your numerology blueprint...</p>
-    </section>
-
-    <section id="resultSection" class="panel result-panel hidden">
-      <div class="result-header">
-        <h2>Your Numerology Blueprint</h2>
-        <p id="numberSummary"></p>
-      </div>
-
-      <article id="combinedCard" class="insight-card combined-card"></article>
-
-      <section class="group-block">
-        <h3>Core Traits</h3>
-        <div id="coreGrid" class="prediction-grid"></div>
       </section>
+    </div>
 
-      <section class="group-block">
-        <h3>Growth & Balance</h3>
-        <div id="growthGrid" class="prediction-grid"></div>
+    <!-- ABOUT PAGE -->
+    <div id="aboutPage" class="page">
+      <section class="panel about-panel">
+        <div class="about-hero">
+          <div class="about-avatar">
+            <div class="avatar-ring"></div>
+            <div class="avatar-inner">VM</div>
+          </div>
+          <h2 class="about-name">Vipul Meshram</h2>
+          <p class="about-tagline">Made with <span class="heart-icon">♥</span> &amp; curiosity</p>
+          <div class="version-badge">
+            <i class="fa-solid fa-code-branch"></i>
+            Version 2.0.0
+          </div>
+        </div>
+
+        <div class="about-content">
+          <div class="about-block">
+            <h3><i class="fa-solid fa-scroll"></i> About KundaliMan</h3>
+            <p>KundaliMan is a Vedic numerology tool that decodes your birth date into a rich personal blueprint — covering personality, career, love, finance, spirituality, and shareable aura cards. It combines ancient Indian numerology (Mulank & Bhagyank) with a clean, modern interface.</p>
+          </div>
+
+          <div class="about-block">
+            <h3><i class="fa-solid fa-user-astronaut"></i> About the Creator</h3>
+            <p>Hi! I'm Vipul Meshram, a developer and creative technologist passionate about blending ancient wisdom with modern tech. KundaliMan started as a personal curiosity project about numerology and grew into a full-featured app.</p>
+            <p>I build under the banner of <strong>Vipul Softwares</strong> — focused on making meaningful, beautifully crafted digital experiences.</p>
+          </div>
+
+          <div class="about-block">
+            <h3><i class="fa-solid fa-satellite-dish"></i> Connect</h3>
+            <div class="social-links">
+              <a href="https://github.com/vipulmesh" target="_blank" rel="noopener" class="social-link github">
+                <i class="fa-brands fa-github"></i>
+                <span>GitHub</span>
+              </a>
+              <a href="https://www.linkedin.com/in/vipul-meshram-83645732a/" target="_blank" rel="noopener" class="social-link linkedin">
+                <i class="fa-brands fa-linkedin-in"></i>
+                <span>LinkedIn</span>
+              </a>
+              <a href="https://www.instagram.com/vipul_m2?igsh=MTM4ZG9xcjl3ODMxaA==" target="_blank" rel="noopener" class="social-link instagram">
+                <i class="fa-brands fa-instagram"></i>
+                <span>Instagram</span>
+              </a>
+              <a href="mailto:vipulmeshramv20@gmail.com" class="social-link email">
+                <i class="fa-solid fa-envelope"></i>
+                <span>Email</span>
+              </a>
+            </div>
+          </div>
+
+          <div class="about-block tech-stack">
+            <h3><i class="fa-solid fa-microchip"></i> Built With</h3>
+            <div class="tech-pills">
+              <span class="tech-pill"><i class="fa-brands fa-html5"></i> HTML5</span>
+              <span class="tech-pill"><i class="fa-brands fa-css3-alt"></i> CSS3</span>
+              <span class="tech-pill"><i class="fa-brands fa-js"></i> Vanilla JS</span>
+              <span class="tech-pill"><i class="fa-solid fa-om"></i> Vedic Numerology</span>
+              <span class="tech-pill"><i class="fa-solid fa-heart"></i> Made with Love</span>
+            </div>
+          </div>
+
+          <div class="about-block changelog">
+            <h3><i class="fa-solid fa-timeline"></i> Changelog</h3>
+            <ul class="change-list">
+              <li><strong>v2.0.0</strong> — Dark/Light mode, About page, Particle animations, Enhanced UI</li>
+              <li><strong>v1.1.0</strong> — Shareable Aura Card with download feature</li>
+              <li><strong>v1.0.0</strong> — Initial launch with Mulank & Bhagyank predictions</li>
+            </ul>
+          </div>
+        </div>
+        
+
+        <div class="about-footer">
+          <p>© 2026 Vipul Softwares · KundaliMan · All rights reserved</p>
+          <button class="submit-btn" style="margin-top:1.2rem;max-width:280px;width:100%;" onclick="showHome(event)">
+            <span class="btn-shimmer"></span>
+            <i class="fa-solid fa-wand-magic-sparkles"></i>
+            Try KundaliMan
+          </button>
+        </div>
       </section>
+    </div>
 
-      <section class="group-block">
-        <h3>Fortune & Spiritual Direction</h3>
-        <div id="fortuneGrid" class="prediction-grid"></div>
-      </section>
-
-      <section class="group-block">
-        <h3>Shareable Aura Card</h3>
-        <div id="shareCard" class="share-card"></div>
-        <button id="downloadBtn" class="download-btn">
-          <i class="fa-solid fa-download"></i>
-          Download My Card
-        </button>
-      </section>
-
-      <button id="resetBtn" class="reset-btn">
-        <i class="fa-solid fa-rotate-left"></i>
-        Try Another DOB
-      </button>
-    </section>
   </main>
+
+  <footer class="site-footer">
+    <p>Made with <span class="heart-icon">♥</span> by <strong>Vipul Meshram</strong> · Vipul Softwares · v2.0.0</p>
+  </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
   <script src="script.js"></script>
