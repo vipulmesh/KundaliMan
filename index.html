@@ -25,6 +25,8 @@
       </a>
       <nav class="header-nav">
         <a href="#" class="nav-link" onclick="showHome(event)">Home</a>
+        <a href="#" class="nav-link nav-link-new" onclick="showNaamank(event)">🔤 Naamank <span class="new-badge">NEW</span></a>
+        <a href="#" class="nav-link" onclick="showCompat(event)">💞 Compatibility <span class="new-badge">NEW</span></a>
         <a href="#" class="nav-link" onclick="showAbout(event)">About</a>
         <button class="theme-toggle" id="themeToggle" aria-label="Toggle light/dark mode">
           <span class="theme-icon dark-icon"><i class="fa-solid fa-moon"></i></span>
@@ -139,6 +141,97 @@
           <i class="fa-solid fa-rotate-left"></i>
           Try Another DOB
         </button>
+      </section>
+    </div>
+
+    <!-- NAAMANK PAGE -->
+    <div id="naamankPage" class="page">
+      <section class="panel input-panel" style="max-width:580px;">
+        <div class="input-hero">
+          <div class="hero-badge">
+            <span class="star-icon">✦</span>
+            <span>Name Number · Chaldean System</span>
+            <span class="star-icon">✦</span>
+          </div>
+          <h1 class="hero-title">
+            <span class="title-line">Your</span>
+            <span class="title-line accent-line">Naamank Blueprint <span class="new-badge new-badge-lg">NEW</span></span>
+          </h1>
+          <p class="hero-sub">Decode the hidden vibration of your name using the ancient Chaldean numerology system.</p>
+        </div>
+        <form id="naamankForm" class="dob-form">
+          <div class="form-field">
+            <label><i class="fa-solid fa-feather-pointed"></i> Full Name</label>
+            <input type="text" id="naamankInput" placeholder="Enter your full name" maxlength="60" required />
+          </div>
+          <button type="submit" class="submit-btn">
+            <span class="btn-shimmer"></span>
+            <i class="fa-solid fa-spell-check"></i>
+            Reveal My Naamank
+          </button>
+        </form>
+        <div id="naamankResult" class="hidden" style="margin-top:2rem;">
+          <div class="naamank-result-card">
+            <div class="naamank-number-display">
+              <span class="naamank-big-num" id="naamankNum"></span>
+              <span class="naamank-label">Naamank</span>
+            </div>
+            <p id="naamankInsight" class="naamank-insight"></p>
+          </div>
+          <button class="reset-btn" id="naamankResetBtn" style="margin-top:1.2rem;">
+            <i class="fa-solid fa-rotate-left"></i> Try Another Name
+          </button>
+        </div>
+      </section>
+    </div>
+
+    <!-- COMPATIBILITY PAGE -->
+    <div id="compatPage" class="page">
+      <section class="panel input-panel" style="max-width:680px;">
+        <div class="input-hero">
+          <div class="hero-badge">
+            <span class="star-icon">✦</span>
+            <span>Vedic Love Compatibility</span>
+            <span class="star-icon">✦</span>
+          </div>
+          <h1 class="hero-title">
+            <span class="title-line">Decode Your</span>
+            <span class="title-line accent-line">Love Blueprint</span>
+          </h1>
+          <p class="hero-sub">Enter two birth dates to reveal your cosmic compatibility score based on ancient Vedic Mulank & Bhagyank numerology.</p>
+        </div>
+
+        <form id="compatForm" class="dob-form">
+          <div class="form-field">
+            <label><i class="fa-solid fa-person"></i> Person A — Name <span class="optional-tag">optional</span></label>
+            <input type="text" id="nameA" placeholder="Name A" maxlength="40" />
+          </div>
+          <div class="form-field">
+            <label><i class="fa-solid fa-calendar-stars"></i> Person A — Date of Birth</label>
+            <input type="date" id="dobA" required />
+          </div>
+          <div class="form-field">
+            <label><i class="fa-solid fa-person-dress"></i> Person B — Name <span class="optional-tag">optional</span></label>
+            <input type="text" id="nameB" placeholder="Name B" maxlength="40" />
+          </div>
+          <div class="form-field">
+            <label><i class="fa-solid fa-calendar-stars"></i> Person B — Date of Birth</label>
+            <input type="date" id="dobB" required />
+          </div>
+          <button type="submit" class="submit-btn">
+            <span class="btn-shimmer"></span>
+            <i class="fa-solid fa-heart"></i>
+            Reveal Compatibility
+          </button>
+        </form>
+
+        <div id="compatResult" class="hidden" style="margin-top:2rem;">
+          <div id="compatScoreRing" class="compat-score-ring"></div>
+          <div id="compatCards" class="compat-cards"></div>
+          <button class="reset-btn" id="compatResetBtn" style="margin-top:1.5rem;">
+            <i class="fa-solid fa-rotate-left"></i> Try Another Pair
+          </button>
+        </div>
       </section>
     </div>
 
