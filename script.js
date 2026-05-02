@@ -23,11 +23,28 @@ themeToggle.addEventListener("click", () => {
 =========================== */
 const homePage = document.getElementById("homePage");
 const aboutPage = document.getElementById("aboutPage");
+const compatPage = document.getElementById("compatPage");
+const naamankPage = document.getElementById("naamankPage");
 
 function showHome(e) {
   e.preventDefault();
   aboutPage.classList.remove("active");
   homePage.classList.add("active");
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function showNaamank(e) {
+  e.preventDefault();
+  [homePage, aboutPage, compatPage].forEach(p => p.classList.remove("active"));
+  naamankPage.classList.add("active");
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function showCompat(e) {
+  e.preventDefault();
+  homePage.classList.remove("active");
+  aboutPage.classList.remove("active");
+  compatPage.classList.add("active");
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
@@ -142,7 +159,8 @@ const sections = [
    NUMEROLOGY FUNCTIONS
 =========================== */
 function reduceToDigit(value) {
-  let num = value;
+  let num = parseInt(value, 10);
+  if (!num || isNaN(num) || num < 1) return 0;
   while (num > 9) {
     num = String(num).split("").reduce((sum, n) => sum + Number(n), 0);
   }
@@ -154,7 +172,9 @@ function calculateMulank(dateObj) {
 }
 
 function calculateBhagyank(dateStr) {
-  const digits = dateStr.replaceAll("-", "").split("").map(Number);
+  if (!dateStr || typeof dateStr !== "string") return 0;
+  const digits = dateStr.replace(/\D/g, "").split("").map(Number);
+  if (!digits.length) return 0;
   return reduceToDigit(digits.reduce((acc, n) => acc + n, 0));
 }
 
@@ -444,8 +464,208 @@ downloadBtn.addEventListener("click", async () => {
 });
 
 /* ===========================
-   RESET
+   NAAMANK (NAME NUMBER)
 =========================== */
+const chaldeanMap = {
+  A:1,I:1,J:1,Q:1,Y:1,
+  B:2,K:2,R:2,
+  C:3,G:3,L:3,S:3,
+  D:4,M:4,T:4,
+  E:5,H:5,N:5,X:5,
+  U:6,V:6,W:6,
+  O:7,Z:7,
+  F:8,P:8
+};
+
+const naamankInsights = {
+  1:"Born to lead — your name carries pioneering, independent solar energy.",
+  2:"Your name vibrates with harmony, intuition, and quiet diplomatic power.",
+  3:"Creative expression and joyful communication flow naturally from your name.",
+  4:"Your name grounds you — stability, discipline, and structure are your gifts.",
+  5:"Freedom, adaptability, and magnetic charm are encoded in your name.",
+  6:"Your name radiates nurturing warmth, beauty, and a deep sense of duty.",
+  7:"Wisdom, depth, and spiritual insight are woven into your name's frequency.",
+  8:"Ambition and executive power pulse through your name — authority awaits.",
+  9:"Your name carries compassion and visionary humanitarian energy."
+};
+
+function getNaamank(name) {
+  const clean = (name || "").toUpperCase().replace(/[^A-Z]/g, "");
+  if (!clean) return { naamank: null, insight: "Please enter a valid name with letters." };
+  const total = clean.split("").reduce((sum, ch) => sum + (chaldeanMap[ch] || 0), 0);
+  const naamank = reduceToDigit(total) || 9;
+  return { naamank, insight: naamankInsights[naamank] };
+}
+
+const naamankForm = document.getElementById("naamankForm");
+naamankForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const name = document.getElementById("naamankInput").value.trim();
+  if (!name) return;
+  const { naamank, insight } = getNaamank(name);
+  document.getElementById("naamankNum").textContent = naamank ?? "—";
+  document.getElementById("naamankInsight").textContent = insight;
+  document.getElementById("naamankResult").classList.remove("hidden");
+  document.getElementById("naamankResult").scrollIntoView({ behavior: "smooth", block: "start" });
+});
+
+document.getElementById("naamankResetBtn").addEventListener("click", () => {
+  document.getElementById("naamankForm").reset();
+  document.getElementById("naamankResult").classList.add("hidden");
+  window.scrollTo({ top: 0, behavior: "smooth" });
+});
+
+
+// Vedic number relation table: relations[a][b] = relation of a towards b
+const compatRelations = {
+  1:{1:"FRIEND",2:"NEUTRAL",3:"FRIEND",4:"NEUTRAL",5:"FRIEND",6:"ENEMY",7:"FRIEND",8:"NEUTRAL",9:"FRIEND"},
+  2:{1:"NEUTRAL",2:"FRIEND",3:"FRIEND",4:"FRIEND",5:"NEUTRAL",6:"FRIEND",7:"FRIEND",8:"ENEMY",9:"FRIEND"},
+  3:{1:"FRIEND",2:"FRIEND",3:"FRIEND",4:"NEUTRAL",5:"FRIEND",6:"FRIEND",7:"NEUTRAL",8:"FRIEND",9:"FRIEND"},
+  4:{1:"NEUTRAL",2:"FRIEND",3:"NEUTRAL",4:"FRIEND",5:"FRIEND",6:"NEUTRAL",7:"FRIEND",8:"FRIEND",9:"ENEMY"},
+  5:{1:"FRIEND",2:"NEUTRAL",3:"FRIEND",4:"FRIEND",5:"FRIEND",6:"NEUTRAL",7:"NEUTRAL",8:"FRIEND",9:"NEUTRAL"},
+  6:{1:"ENEMY",2:"FRIEND",3:"FRIEND",4:"NEUTRAL",5:"NEUTRAL",6:"FRIEND",7:"NEUTRAL",8:"FRIEND",9:"FRIEND"},
+  7:{1:"FRIEND",2:"FRIEND",3:"NEUTRAL",4:"FRIEND",5:"NEUTRAL",6:"NEUTRAL",7:"FRIEND",8:"NEUTRAL",9:"FRIEND"},
+  8:{1:"NEUTRAL",2:"ENEMY",3:"FRIEND",4:"FRIEND",5:"FRIEND",6:"FRIEND",7:"NEUTRAL",8:"FRIEND",9:"NEUTRAL"},
+  9:{1:"FRIEND",2:"FRIEND",3:"FRIEND",4:"ENEMY",5:"NEUTRAL",6:"FRIEND",7:"FRIEND",8:"NEUTRAL",9:"FRIEND"}
+};
+
+const relationScore = {FRIEND:40,NEUTRAL:25,ENEMY:10,HIGH:0,DEPENDS:20,KARMIC:30,"NO ENEMY":50};
+
+function getLoveCompatibility(dob1, dob2) {
+  const d1 = new Date(dob1), d2 = new Date(dob2);
+  if (isNaN(d1) || isNaN(d2)) return null;
+  const m1 = calculateMulank(d1), b1 = calculateBhagyank(dob1);
+  const m2 = calculateMulank(d2), b2 = calculateBhagyank(dob2);
+
+  const relAtoB = compatRelations[m1][m2];
+  const relBtoA = compatRelations[m2][m1];
+  const moolankScore = ((relationScore[relAtoB] || 25) + (relationScore[relBtoA] || 25)) / 2;
+
+  let bhagyankBonus = 0;
+  if (b1 === b2) bhagyankBonus = 20;
+  else if (compatRelations[b1][b2] === "FRIEND" && compatRelations[b2][b1] === "FRIEND") bhagyankBonus = 10;
+
+  const raw = moolankScore * 0.7 + bhagyankBonus * 0.3 + bhagyankBonus;
+  const score = Math.min(100, Math.max(0, Math.round(raw)));
+
+  const scoreLabel = score >= 80 ? "Soulmate Energy" : score >= 65 ? "Strong Bond" : score >= 50 ? "Compatible" : score >= 35 ? "Work Required" : "Challenging";
+  const relLabel = `${relAtoB} ↔ ${relBtoA}`;
+
+  const summaries = {
+    "FRIEND↔FRIEND": "Both numbers see each other as allies — this pairing carries natural warmth and trust.",
+    "FRIEND↔NEUTRAL": "One side feels more drawn in; balance grows when both invest equally.",
+    "NEUTRAL↔FRIEND": "Steady mutual respect forms the base; affection deepens with time.",
+    "NEUTRAL↔NEUTRAL": "A calm, practical connection — not fiery, but enduringly stable.",
+    "FRIEND↔ENEMY": "Magnetic attraction exists, yet internal tension needs conscious management.",
+    "ENEMY↔FRIEND": "Strong pull with underlying friction — awareness transforms this into growth.",
+    "ENEMY↔ENEMY": "Both numbers clash at the core; deep patience and shared goals are essential.",
+  };
+  const summaryKey = `${relAtoB}↔${relBtoA}`;
+  const summary = summaries[summaryKey] || `Mulank ${m1} and ${m2} carry a ${relLabel} dynamic — nuance and communication define this bond.`;
+
+  const strengthPool = [
+    "Shared drive creates momentum when goals align.",
+    "Emotional intuition bridges gaps between your personalities.",
+    "Natural respect forms a resilient foundation.",
+    "Complementary energies make you stronger as a team.",
+    "Deep curiosity about each other keeps the bond alive."
+  ];
+  const challengePool = [
+    "Ego clashes can arise when both want to lead.",
+    "Different emotional paces may cause timing mismatches.",
+    "One may feel underappreciated without clear expression.",
+    "Financial priorities may diverge over time.",
+    "Independence needs may conflict with closeness."
+  ];
+  const tipPool = [
+    "Schedule a weekly check-in to stay emotionally aligned.",
+    "Celebrate small wins together to reinforce the bond.",
+    "Respect each other's need for personal space.",
+    "Communicate love languages explicitly — don't assume.",
+    "Revisit shared goals every few months to stay in sync."
+  ];
+
+  const seed = m1 + m2 + b1 + b2;
+  return {
+    score, scoreLabel, relLabel, summary, m1, m2, b1, b2,
+    strengths: [strengthPool[seed % strengthPool.length], strengthPool[(seed + 2) % strengthPool.length]],
+    challenges: [challengePool[seed % challengePool.length], challengePool[(seed + 3) % challengePool.length]],
+    tips: [tipPool[seed % tipPool.length], tipPool[(seed + 1) % tipPool.length], tipPool[(seed + 4) % tipPool.length]]
+  };
+}
+
+function renderCompatResult(nameA, nameB, result) {
+  const nA = nameA?.trim() || "Person A";
+  const nB = nameB?.trim() || "Person B";
+  const colorMap = { 80: "#3de8bc", 65: "#7b91ff", 50: "#ffb347", 35: "#d56bff", 0: "#ff6b6b" };
+  const color = Object.keys(colorMap).reverse().find(k => result.score >= +k) || "0";
+  const accent = colorMap[color];
+  const circumference = 2 * Math.PI * 52;
+  const dash = (result.score / 100) * circumference;
+
+  document.getElementById("compatScoreRing").innerHTML = `
+    <div class="score-ring-wrap">
+      <svg width="130" height="130" viewBox="0 0 130 130">
+        <circle cx="65" cy="65" r="52" fill="none" stroke="var(--card-border)" stroke-width="10"/>
+        <circle cx="65" cy="65" r="52" fill="none" stroke="${accent}" stroke-width="10"
+          stroke-dasharray="${dash} ${circumference}" stroke-dashoffset="${circumference / 4}"
+          stroke-linecap="round" style="transition:stroke-dasharray 1s ease"/>
+      </svg>
+      <div class="score-center">
+        <span class="score-num" style="color:${accent}">${result.score}</span>
+        <span class="score-pct">/ 100</span>
+      </div>
+    </div>
+    <div class="score-label" style="color:${accent}">${result.scoreLabel}</div>
+    <div class="score-names">${escapeHtml(nA)} <i class="fa-solid fa-heart" style="color:${accent};font-size:.8em"></i> ${escapeHtml(nB)}</div>
+    <div class="score-nums-row">
+      <span class="score-num-chip">Mulank ${result.m1} ↔ ${result.m2}</span>
+      <span class="score-num-chip">Bhagyank ${result.b1} ↔ ${result.b2}</span>
+      <span class="score-num-chip">${result.relLabel}</span>
+    </div>
+  `;
+
+  document.getElementById("compatCards").innerHTML = `
+    <div class="compat-card">
+      <div class="title-row"><i class="fa-solid fa-comment-dots"></i><h4>Summary</h4></div>
+      <p>${escapeHtml(result.summary)}</p>
+    </div>
+    <div class="compat-card">
+      <div class="title-row"><i class="fa-solid fa-star" style="color:#3de8bc"></i><h4>Strengths</h4></div>
+      ${renderList(result.strengths)}
+    </div>
+    <div class="compat-card">
+      <div class="title-row"><i class="fa-solid fa-triangle-exclamation" style="color:#ffb347"></i><h4>Challenges</h4></div>
+      ${renderList(result.challenges)}
+    </div>
+    <div class="compat-card">
+      <div class="title-row"><i class="fa-solid fa-lightbulb" style="color:#d56bff"></i><h4>Tips for Growth</h4></div>
+      ${renderList(result.tips)}
+    </div>
+  `;
+
+  document.getElementById("compatResult").classList.remove("hidden");
+}
+
+const compatForm = document.getElementById("compatForm");
+compatForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const dob1 = document.getElementById("dobA").value;
+  const dob2 = document.getElementById("dobB").value;
+  if (!dob1 || !dob2) return;
+  const result = getLoveCompatibility(dob1, dob2);
+  if (!result) return;
+  renderCompatResult(document.getElementById("nameA").value, document.getElementById("nameB").value, result);
+  document.getElementById("compatResult").scrollIntoView({ behavior: "smooth", block: "start" });
+});
+
+document.getElementById("compatResetBtn").addEventListener("click", () => {
+  document.getElementById("compatForm").reset();
+  document.getElementById("compatResult").classList.add("hidden");
+  window.scrollTo({ top: 0, behavior: "smooth" });
+});
+
+
 function doReset() {
   coreGrid.innerHTML = "";
   growthGrid.innerHTML = "";
