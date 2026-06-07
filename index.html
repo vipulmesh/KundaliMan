@@ -1,57 +1,88 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>KundaliMan — Numerology Blueprint</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=DM+Sans:wght@300;400;500;600;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
   <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
 
-  <!-- Particle canvas background -->
-  <canvas id="particleCanvas" aria-hidden="true"></canvas>
-  <div class="background-glow" aria-hidden="true"></div>
+  <!-- BACKGROUND VIDEO -->
+  <div class="video-container">
+    <video id="bgVideo" autoplay loop muted playsinline>
+      <source
+        src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260511_230229_7c9bc431-46cf-489a-948d-e8144d8eb5d4.mp4"
+        type="video/mp4" />
+    </video>
+    <div class="video-overlay"></div>
+  </div>
 
   <!-- HEADER -->
   <header class="site-header">
     <div class="header-inner">
+      <!-- Logo -->
       <a href="#" class="logo" onclick="showHome(event)">
-        <span class="logo-symbol">ॐ</span>
+        
         <span class="logo-text">KundaliMan</span>
       </a>
-      <nav class="header-nav">
-        <a href="#" class="nav-link" onclick="showHome(event)">Home</a>
-        <a href="#" class="nav-link nav-link-new" onclick="showNaamank(event)">🔤 Naamank <span class="new-badge">NEW</span></a>
-        <a href="#" class="nav-link" onclick="showCompat(event)">💞 Compatibility <span class="new-badge">NEW</span></a>
+
+      <!-- Center nav pill (desktop) -->
+      <nav class="nav-pill liquid-glass" id="desktopNav">
+        <a href="#" class="nav-link active" onclick="showHome(event)">Home</a>
+
+        <a href="#" class="nav-link" onclick="showCompat(event)">
+          Compatibility <span class="new-badge">NEW</span>
+        </a>
         <a href="#" class="nav-link" onclick="showAbout(event)">About</a>
-        <button class="theme-toggle" id="themeToggle" aria-label="Toggle light/dark mode">
-          <span class="theme-icon dark-icon"><i class="fa-solid fa-moon"></i></span>
-          <span class="theme-icon light-icon"><i class="fa-solid fa-sun"></i></span>
-        </button>
       </nav>
+
+      <!-- Right buttons (desktop) -->
+      <div class="header-actions">
+   <button class="btn-solid" onclick="window.location.href='consult_page.html'">
+    CHART ANALYSIS (starting @₹51/hr)
+</button>
+        <!-- Mobile hamburger -->
+        <button class="menu-toggle liquid-glass" id="menuToggle" aria-label="Toggle menu">
+          <i data-lucide="menu" id="menuIconOpen"></i>
+          <i data-lucide="x" id="menuIconClose" style="display:none"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile nav panel -->
+    <div class="mobile-nav liquid-glass" id="mobileNav">
+      <a href="#" class="mobile-nav-link" onclick="closeMobileMenu();showHome(event)">Home</a>
+      <a href="#" class="mobile-nav-link" onclick="closeMobileMenu();showCompat(event)">💞 Compatibility <span
+          class="new-badge">NEW</span></a>
+      <a href="#" class="mobile-nav-link" onclick="closeMobileMenu();showAbout(event)">About</a>
+      <div class="mobile-nav-ctas">
+        <button class="btn-ghost liquid-glass" onclick="closeMobileMenu();showAbout(event)">About</button>
+        <button class="btn-solid" onclick="closeMobileMenu();showHome(event)">Begin Now</button>
+      </div>
     </div>
   </header>
 
   <main class="app-container">
 
-    <!-- HOME / INPUT PAGE -->
+    <!-- HOME PAGE -->
     <div id="homePage" class="page active">
-      <section id="inputSection" class="panel input-panel">
+      <!-- INPUT SECTION -->
+      <section id="inputSection" class="panel liquid-glass input-panel">
         <div class="input-hero">
-          <div class="hero-badge">
-            <span class="star-icon">✦</span>
-            <span>Vedic Numerology Engine</span>
-            <span class="star-icon">✦</span>
-          </div>
           <h1 class="hero-title">
             <span class="title-line">Decode Your</span>
             <span class="title-line accent-line">Cosmic Blueprint</span>
           </h1>
-          <p class="hero-sub">Unlock deep personality patterns, life trends, love style, career direction, lucky elements, and your personal aura card — powered by ancient Vedic numerology.</p>
+          <p class="hero-sub">Unlock deep personality patterns, life trends, love style, career direction, lucky
+            elements, and your personal aura card — powered by ancient Vedic numerology.</p>
         </div>
 
         <form id="numerologyForm" class="dob-form">
@@ -77,14 +108,13 @@
         </form>
 
         <div class="trust-strip">
-          <span><i class="fa-solid fa-lock"></i>We don't sale/save any data </span>
-          <span><i class="fa-solid fa-star"></i> Vedic Method</span>
-          <span><i class="fa-solid fa-infinity"></i> Instant Results</span>
+          <span><i class="fa-solid fa-lock"></i>SECURE AND FAST</span>
+          
         </div>
       </section>
 
       <!-- LOADER -->
-      <section id="loaderSection" class="panel loader-panel hidden">
+      <section id="loaderSection" class="panel liquid-glass loader-panel hidden">
         <div class="loader-ring">
           <div class="ring r1"></div>
           <div class="ring r2"></div>
@@ -101,7 +131,7 @@
 
       <!-- RESULTS -->
       <section id="resultSection" class="panel result-panel hidden">
-        <div class="result-header">
+        <div class="result-header liquid-glass">
           <div class="result-title-row">
             <h2>Your Numerology Blueprint</h2>
             <button class="reset-btn-sm" id="resetBtnTop" title="Start over">
@@ -111,7 +141,7 @@
           <p id="numberSummary" class="number-summary-pill"></p>
         </div>
 
-        <article id="combinedCard" class="insight-card combined-card"></article>
+        <article id="combinedCard" class="insight-card combined-card liquid-glass"></article>
 
         <section class="group-block">
           <h3 class="group-title"><i class="fa-solid fa-sparkles"></i> Core Traits</h3>
@@ -124,7 +154,7 @@
         </section>
 
         <section class="group-block">
-          <h3 class="group-title"><i class="fa-solid fa-star-and-crescent"></i> Fortune & Spiritual Direction</h3>
+          <h3 class="group-title"><i class="fa-solid fa-star-and-crescent"></i> Fortune & Spiritual</h3>
           <div id="fortuneGrid" class="prediction-grid"></div>
         </section>
 
@@ -144,61 +174,17 @@
       </section>
     </div>
 
-    <!-- NAAMANK PAGE -->
-    <div id="naamankPage" class="page">
-      <section class="panel input-panel" style="max-width:580px;">
-        <div class="input-hero">
-          <div class="hero-badge">
-            <span class="star-icon">✦</span>
-            <span>Name Number · Chaldean System</span>
-            <span class="star-icon">✦</span>
-          </div>
-          <h1 class="hero-title">
-            <span class="title-line">Your</span>
-            <span class="title-line accent-line">Naamank Blueprint <span class="new-badge new-badge-lg">NEW</span></span>
-          </h1>
-          <p class="hero-sub">Decode the hidden vibration of your name using the ancient Chaldean numerology system.</p>
-        </div>
-        <form id="naamankForm" class="dob-form">
-          <div class="form-field">
-            <label><i class="fa-solid fa-feather-pointed"></i> Full Name</label>
-            <input type="text" id="naamankInput" placeholder="Enter your full name" maxlength="60" required />
-          </div>
-          <button type="submit" class="submit-btn">
-            <span class="btn-shimmer"></span>
-            <i class="fa-solid fa-spell-check"></i>
-            Reveal My Naamank
-          </button>
-        </form>
-        <div id="naamankResult" class="hidden" style="margin-top:2rem;">
-          <div class="naamank-result-card">
-            <div class="naamank-number-display">
-              <span class="naamank-big-num" id="naamankNum"></span>
-              <span class="naamank-label">Naamank</span>
-            </div>
-            <p id="naamankInsight" class="naamank-insight"></p>
-          </div>
-          <button class="reset-btn" id="naamankResetBtn" style="margin-top:1.2rem;">
-            <i class="fa-solid fa-rotate-left"></i> Try Another Name
-          </button>
-        </div>
-      </section>
-    </div>
-
     <!-- COMPATIBILITY PAGE -->
     <div id="compatPage" class="page">
-      <section class="panel input-panel" style="max-width:680px;">
+      <section class="panel liquid-glass input-panel" style="max-width:680px;">
         <div class="input-hero">
-          <div class="hero-badge">
-            <span class="star-icon">✦</span>
-            <span>Vedic Love Compatibility</span>
-            <span class="star-icon">✦</span>
-          </div>
+     
           <h1 class="hero-title">
             <span class="title-line">Decode Your</span>
             <span class="title-line accent-line">Love Blueprint</span>
           </h1>
-          <p class="hero-sub">Enter two birth dates to reveal your cosmic compatibility score based on ancient Vedic Mulank & Bhagyank numerology.</p>
+          <p class="hero-sub">Enter two birth dates to reveal your cosmic compatibility score based on ancient Vedic
+            Mulank & Bhagyank numerology.</p>
         </div>
 
         <form id="compatForm" class="dob-form">
@@ -211,7 +197,8 @@
             <input type="date" id="dobA" required />
           </div>
           <div class="form-field">
-            <label><i class="fa-solid fa-person-dress"></i> Person B — Name <span class="optional-tag">optional</span></label>
+            <label><i class="fa-solid fa-person-dress"></i> Person B — Name <span
+                class="optional-tag">optional</span></label>
             <input type="text" id="nameB" placeholder="Name B" maxlength="40" />
           </div>
           <div class="form-field">
@@ -237,7 +224,7 @@
 
     <!-- ABOUT PAGE -->
     <div id="aboutPage" class="page">
-      <section class="panel about-panel">
+      <section class="panel liquid-glass about-panel">
         <div class="about-hero">
           <div class="about-avatar">
             <div class="avatar-ring"></div>
@@ -245,47 +232,49 @@
           </div>
           <h2 class="about-name">Vipul Meshram</h2>
           <p class="about-tagline">Made with <span class="heart-icon">♥</span> &amp; curiosity</p>
-          <div class="version-badge">
+          <div class="version-badge liquid-glass">
             <i class="fa-solid fa-code-branch"></i>
             Version 2.0.0
           </div>
         </div>
 
         <div class="about-content">
-          <div class="about-block">
+          <div class="about-block liquid-glass">
             <h3><i class="fa-solid fa-scroll"></i> About KundaliMan</h3>
-            <p>KundaliMan is a Vedic numerology tool that decodes your birth date into a rich personal blueprint — covering personality, career, love, finance, spirituality, and shareable aura cards. It combines ancient Indian numerology (Mulank & Bhagyank) with a clean, modern interface.</p>
+            <p>KundaliMan is a Vedic numerology tool that decodes your birth date into a rich personal blueprint —
+              covering personality, career, love, finance, spirituality, and shareable aura cards.</p>
           </div>
 
-          <div class="about-block">
+          <div class="about-block liquid-glass">
             <h3><i class="fa-solid fa-user-astronaut"></i> About the Creator</h3>
-            <p>Hi! I'm Vipul Meshram, a developer and creative technologist passionate about blending ancient wisdom with modern tech. KundaliMan started as a personal curiosity project about numerology and grew into a full-featured app.</p>
-            <p>I build under the banner of <strong>Vipul Softwares</strong> — focused on making meaningful, beautifully crafted digital experiences.</p>
+            <p>Hi! I'm Vipul Meshram, a developer and creative technologist passionate about blending ancient wisdom
+              with modern tech. KundaliMan started as a personal curiosity project and grew into a full-featured app.
+            </p>
+            <p style="margin-top:.7rem">I build under <strong>Vipul Softwares</strong> — focused on meaningful,
+              beautifully crafted digital experiences.</p>
           </div>
 
-          <div class="about-block">
+          <div class="about-block liquid-glass">
             <h3><i class="fa-solid fa-satellite-dish"></i> Connect</h3>
             <div class="social-links">
               <a href="https://github.com/vipulmesh" target="_blank" rel="noopener" class="social-link github">
-                <i class="fa-brands fa-github"></i>
-                <span>GitHub</span>
+                <i class="fa-brands fa-github"></i><span>GitHub</span>
               </a>
-              <a href="https://www.linkedin.com/in/vipul-meshram-83645732a/" target="_blank" rel="noopener" class="social-link linkedin">
-                <i class="fa-brands fa-linkedin-in"></i>
-                <span>LinkedIn</span>
+              <a href="https://www.linkedin.com/in/vipul-meshram-83645732a/" target="_blank" rel="noopener"
+                class="social-link linkedin">
+                <i class="fa-brands fa-linkedin-in"></i><span>LinkedIn</span>
               </a>
-              <a href="https://www.instagram.com/vipul_m2?igsh=MTM4ZG9xcjl3ODMxaA==" target="_blank" rel="noopener" class="social-link instagram">
-                <i class="fa-brands fa-instagram"></i>
-                <span>Instagram</span>
+              <a href="https://www.instagram.com/vipul_m2?igsh=MTM4ZG9xcjl3ODMxaA==" target="_blank" rel="noopener"
+                class="social-link instagram">
+                <i class="fa-brands fa-instagram"></i><span>Instagram</span>
               </a>
               <a href="mailto:vipulmeshramv20@gmail.com" class="social-link email">
-                <i class="fa-solid fa-envelope"></i>
-                <span>Email</span>
+                <i class="fa-solid fa-envelope"></i><span>Email</span>
               </a>
             </div>
           </div>
 
-          <div class="about-block tech-stack">
+          <div class="about-block liquid-glass tech-stack">
             <h3><i class="fa-solid fa-microchip"></i> Built With</h3>
             <div class="tech-pills">
               <span class="tech-pill"><i class="fa-brands fa-html5"></i> HTML5</span>
@@ -296,16 +285,15 @@
             </div>
           </div>
 
-          <div class="about-block changelog">
+          <div class="about-block liquid-glass changelog">
             <h3><i class="fa-solid fa-timeline"></i> Changelog</h3>
             <ul class="change-list">
-              <li><strong>v2.0.0</strong> — Dark/Light mode, About page, Particle animations, Enhanced UI</li>
+              <li><strong>v2.0.0</strong> — Liquid Glass UI, About page, Video background, Enhanced design</li>
               <li><strong>v1.1.0</strong> — Shareable Aura Card with download feature</li>
               <li><strong>v1.0.0</strong> — Initial launch with Mulank & Bhagyank predictions</li>
             </ul>
           </div>
         </div>
-        
 
         <div class="about-footer">
           <p>© 2026 Vipul Softwares · KundaliMan · All rights reserved</p>
@@ -326,5 +314,7 @@
 
   <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
   <script src="script.js"></script>
+  <script>lucide.createIcons();</script>
 </body>
+
 </html>

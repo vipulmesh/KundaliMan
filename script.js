@@ -1,22 +1,27 @@
 /* ===========================
-   DARK / LIGHT MODE TOGGLE
+   MOBILE MENU
 =========================== */
-const themeToggle = document.getElementById("themeToggle");
-const htmlEl = document.documentElement;
+let menuOpen = false;
+const menuToggle = document.getElementById("menuToggle");
+const mobileNav = document.getElementById("mobileNav");
+const menuIconOpen = document.getElementById("menuIconOpen");
+const menuIconClose = document.getElementById("menuIconClose");
 
-function applyTheme(theme) {
-  htmlEl.setAttribute("data-theme", theme);
-  localStorage.setItem("km-theme", theme);
+function closeMobileMenu() {
+  menuOpen = false;
+  mobileNav.classList.remove("open");
+  menuIconOpen.style.display = "";
+  menuIconClose.style.display = "none";
 }
 
-// Load saved theme
-const savedTheme = localStorage.getItem("km-theme") || "dark";
-applyTheme(savedTheme);
-
-themeToggle.addEventListener("click", () => {
-  const current = htmlEl.getAttribute("data-theme");
-  applyTheme(current === "dark" ? "light" : "dark");
-});
+if (menuToggle) {
+  menuToggle.addEventListener("click", () => {
+    menuOpen = !menuOpen;
+    mobileNav.classList.toggle("open", menuOpen);
+    menuIconOpen.style.display = menuOpen ? "none" : "";
+    menuIconClose.style.display = menuOpen ? "" : "none";
+  });
+}
 
 /* ===========================
    PAGE NAVIGATION
@@ -24,89 +29,37 @@ themeToggle.addEventListener("click", () => {
 const homePage = document.getElementById("homePage");
 const aboutPage = document.getElementById("aboutPage");
 const compatPage = document.getElementById("compatPage");
-const naamankPage = document.getElementById("naamankPage");
+
+const allPages = [homePage, aboutPage, compatPage];
+
+function setActivePage(page) {
+  allPages.forEach(p => p && p.classList.remove("active"));
+  if (page) page.classList.add("active");
+  // Update active nav link
+  const navLinks = document.querySelectorAll(".nav-pill .nav-link");
+  navLinks.forEach(l => l.classList.remove("active"));
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
 
 function showHome(e) {
-  e.preventDefault();
-  aboutPage.classList.remove("active");
-  homePage.classList.add("active");
-  window.scrollTo({ top: 0, behavior: "smooth" });
+  if (e) e.preventDefault();
+  setActivePage(homePage);
+  const link = document.querySelector('.nav-pill .nav-link:first-child');
+  if (link) link.classList.add("active");
 }
 
-function showNaamank(e) {
-  e.preventDefault();
-  [homePage, aboutPage, compatPage].forEach(p => p.classList.remove("active"));
-  naamankPage.classList.add("active");
-  window.scrollTo({ top: 0, behavior: "smooth" });
-}
 
 function showCompat(e) {
-  e.preventDefault();
-  homePage.classList.remove("active");
-  aboutPage.classList.remove("active");
-  compatPage.classList.add("active");
-  window.scrollTo({ top: 0, behavior: "smooth" });
+  if (e) e.preventDefault();
+  setActivePage(compatPage);
 }
 
 function showAbout(e) {
-  e.preventDefault();
-  homePage.classList.remove("active");
-  aboutPage.classList.add("active");
-  window.scrollTo({ top: 0, behavior: "smooth" });
+  if (e) e.preventDefault();
+  setActivePage(aboutPage);
 }
 
-/* ===========================
-   PARTICLE CANVAS
-=========================== */
-const canvas = document.getElementById("particleCanvas");
-const ctx = canvas.getContext("2d");
-let particles = [];
-
-function resizeCanvas() {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-}
-
-function createParticles() {
-  particles = [];
-  const count = Math.floor((canvas.width * canvas.height) / 18000);
-  for (let i = 0; i < count; i++) {
-    particles.push({
-      x: Math.random() * canvas.width,
-      y: Math.random() * canvas.height,
-      r: Math.random() * 1.5 + 0.4,
-      dx: (Math.random() - 0.5) * 0.25,
-      dy: (Math.random() - 0.5) * 0.25,
-      opacity: Math.random() * 0.5 + 0.1,
-      color: Math.random() > 0.5 ? "123,145,255" : "61,232,188"
-    });
-  }
-}
-
-function animateParticles() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  const isDark = htmlEl.getAttribute("data-theme") === "dark";
-  for (const p of particles) {
-    ctx.beginPath();
-    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-    ctx.fillStyle = `rgba(${p.color},${isDark ? p.opacity : p.opacity * 0.5})`;
-    ctx.fill();
-    p.x += p.dx;
-    p.y += p.dy;
-    if (p.x < 0 || p.x > canvas.width) p.dx *= -1;
-    if (p.y < 0 || p.y > canvas.height) p.dy *= -1;
-  }
-  requestAnimationFrame(animateParticles);
-}
-
-resizeCanvas();
-createParticles();
-animateParticles();
-
-window.addEventListener("resize", () => {
-  resizeCanvas();
-  createParticles();
-});
+/* Particle canvas removed — video background handles ambiance */
 
 /* ===========================
    FORM ELEMENTS
@@ -463,57 +416,6 @@ downloadBtn.addEventListener("click", async () => {
   }
 });
 
-/* ===========================
-   NAAMANK (NAME NUMBER)
-=========================== */
-const chaldeanMap = {
-  A:1,I:1,J:1,Q:1,Y:1,
-  B:2,K:2,R:2,
-  C:3,G:3,L:3,S:3,
-  D:4,M:4,T:4,
-  E:5,H:5,N:5,X:5,
-  U:6,V:6,W:6,
-  O:7,Z:7,
-  F:8,P:8
-};
-
-const naamankInsights = {
-  1:"Born to lead — your name carries pioneering, independent solar energy.",
-  2:"Your name vibrates with harmony, intuition, and quiet diplomatic power.",
-  3:"Creative expression and joyful communication flow naturally from your name.",
-  4:"Your name grounds you — stability, discipline, and structure are your gifts.",
-  5:"Freedom, adaptability, and magnetic charm are encoded in your name.",
-  6:"Your name radiates nurturing warmth, beauty, and a deep sense of duty.",
-  7:"Wisdom, depth, and spiritual insight are woven into your name's frequency.",
-  8:"Ambition and executive power pulse through your name — authority awaits.",
-  9:"Your name carries compassion and visionary humanitarian energy."
-};
-
-function getNaamank(name) {
-  const clean = (name || "").toUpperCase().replace(/[^A-Z]/g, "");
-  if (!clean) return { naamank: null, insight: "Please enter a valid name with letters." };
-  const total = clean.split("").reduce((sum, ch) => sum + (chaldeanMap[ch] || 0), 0);
-  const naamank = reduceToDigit(total) || 9;
-  return { naamank, insight: naamankInsights[naamank] };
-}
-
-const naamankForm = document.getElementById("naamankForm");
-naamankForm.addEventListener("submit", (e) => {
-  e.preventDefault();
-  const name = document.getElementById("naamankInput").value.trim();
-  if (!name) return;
-  const { naamank, insight } = getNaamank(name);
-  document.getElementById("naamankNum").textContent = naamank ?? "—";
-  document.getElementById("naamankInsight").textContent = insight;
-  document.getElementById("naamankResult").classList.remove("hidden");
-  document.getElementById("naamankResult").scrollIntoView({ behavior: "smooth", block: "start" });
-});
-
-document.getElementById("naamankResetBtn").addEventListener("click", () => {
-  document.getElementById("naamankForm").reset();
-  document.getElementById("naamankResult").classList.add("hidden");
-  window.scrollTo({ top: 0, behavior: "smooth" });
-});
 
 
 // Vedic number relation table: relations[a][b] = relation of a towards b

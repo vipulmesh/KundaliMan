@@ -1,0 +1,1750 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="description" content="Book a personal Vedic astrology consultation. Get your birth chart analyzed by an expert. Career, marriage, finance, and life purpose guidance."/>
+<title>Personal Horoscope Consultation — Book Your Session</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+
+<style>
+/* ===========================
+   CSS CUSTOM PROPERTIES (from global style.css)
+=========================== */
+:root {
+  --white-10: rgba(255,255,255,0.10);
+  --white-15: rgba(255,255,255,0.15);
+  --white-20: rgba(255,255,255,0.20);
+  --white-45: rgba(255,255,255,0.45);
+  --white-70: rgba(255,255,255,0.70);
+  --white-90: rgba(255,255,255,0.90);
+  --text: #ffffff;
+  --text-muted: rgba(255,255,255,0.65);
+  --text-sub: rgba(255,255,255,0.80);
+  --accent: #a78bfa;
+  --accent-2: #34d399;
+  --accent-3: #f472b6;
+  --accent-warm: #fbbf24;
+  --card-border: rgba(255,255,255,0.12);
+  --card-border-hover: rgba(255,255,255,0.28);
+  --shadow: 0 24px 64px rgba(0,0,0,0.5);
+  --shadow-sm: 0 8px 24px rgba(0,0,0,0.35);
+  --header-height: 68px;
+  --input-bg: rgba(255,255,255,0.08);
+  --input-border: rgba(255,255,255,0.18);
+  --pill-bg: rgba(255,255,255,0.08);
+  --pill-border: rgba(255,255,255,0.15);
+  --footer-text: rgba(255,255,255,0.4);
+  --loader-track: rgba(255,255,255,0.12);
+}
+
+/* ===========================
+   RESET & BASE
+=========================== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  min-height: 100vh;
+  font-family: "Geist", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: var(--text);
+  overflow-x: hidden;
+  position: relative;
+  background: #060514;
+}
+
+/* ===========================
+   ANIMATED BACKGROUND
+=========================== */
+.bg-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.bg-canvas::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 50% at 20% 10%, rgba(167,139,250,0.18) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 80% 80%, rgba(52,211,153,0.12) 0%, transparent 55%),
+    radial-gradient(ellipse 50% 60% at 60% 30%, rgba(244,114,182,0.08) 0%, transparent 50%),
+    linear-gradient(160deg, rgba(5,5,20,0.97) 0%, rgba(8,4,28,0.95) 50%, rgba(4,8,22,0.97) 100%);
+}
+.star-field {
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(1px 1px at 10% 15%, rgba(255,255,255,0.6) 0%, transparent 100%),
+    radial-gradient(1px 1px at 25% 55%, rgba(255,255,255,0.4) 0%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 40% 25%, rgba(255,255,255,0.5) 0%, transparent 100%),
+    radial-gradient(1px 1px at 60% 70%, rgba(255,255,255,0.3) 0%, transparent 100%),
+    radial-gradient(1px 1px at 75% 40%, rgba(255,255,255,0.5) 0%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 88% 20%, rgba(255,255,255,0.4) 0%, transparent 100%),
+    radial-gradient(1px 1px at 15% 80%, rgba(255,255,255,0.3) 0%, transparent 100%),
+    radial-gradient(1px 1px at 55% 45%, rgba(255,255,255,0.5) 0%, transparent 100%),
+    radial-gradient(1px 1px at 92% 65%, rgba(255,255,255,0.4) 0%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 33% 88%, rgba(255,255,255,0.3) 0%, transparent 100%),
+    radial-gradient(1px 1px at 68% 12%, rgba(255,255,255,0.5) 0%, transparent 100%),
+    radial-gradient(1px 1px at 48% 92%, rgba(255,255,255,0.3) 0%, transparent 100%);
+  animation: twinkle 8s ease-in-out infinite alternate;
+}
+@keyframes twinkle {
+  0% { opacity: 0.6; }
+  100% { opacity: 1; }
+}
+
+/* ===========================
+   LIQUID GLASS BASE (from global)
+=========================== */
+.liquid-glass {
+  background: rgba(255,255,255,0.01);
+  backdrop-filter: blur(18px) saturate(1.8);
+  -webkit-backdrop-filter: blur(18px) saturate(1.8);
+  border: none;
+  box-shadow: inset 0 1px 1px rgba(255,255,255,0.12), 0 20px 48px rgba(0,0,0,0.4);
+  position: relative;
+  overflow: hidden;
+}
+.liquid-glass::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1.4px;
+  background: linear-gradient(180deg,
+    rgba(255,255,255,0.45) 0%,
+    rgba(255,255,255,0.15) 20%,
+    rgba(255,255,255,0) 40%,
+    rgba(255,255,255,0) 60%,
+    rgba(255,255,255,0.15) 80%,
+    rgba(255,255,255,0.45) 100%
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ===========================
+   HEADER
+=========================== */
+.site-header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  background: rgba(10,8,20,0.35);
+  backdrop-filter: blur(20px) saturate(1.6);
+  -webkit-backdrop-filter: blur(20px) saturate(1.6);
+  border-bottom: 1px solid rgba(255,255,255,0.10);
+}
+.header-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  height: var(--header-height);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  text-decoration: none;
+  color: var(--text);
+  font-weight: 600;
+  font-size: 1.05rem;
+  letter-spacing: -0.01em;
+  flex-shrink: 0;
+  transition: opacity 0.2s;
+}
+.logo:hover { opacity: 0.8; }
+.logo-icon { width: 22px; height: 22px; flex-shrink: 0; }
+.nav-pill {
+  display: flex;
+  align-items: center;
+  gap: 0.15rem;
+  padding: 0.3rem;
+  border-radius: 999px;
+}
+.nav-pill .nav-link {
+  text-decoration: none;
+  color: var(--white-70);
+  font-size: 0.84rem;
+  font-weight: 500;
+  padding: 0.4rem 0.9rem;
+  border-radius: 999px;
+  transition: color 0.2s, background 0.2s;
+  white-space: nowrap;
+}
+.nav-pill .nav-link:hover { color: #fff; background: rgba(255,255,255,0.10); }
+.nav-pill .nav-link.active { color: #fff; background: rgba(255,255,255,0.16); }
+.header-actions { display: flex; align-items: center; gap: 0.5rem; flex-shrink: 0; }
+.btn-ghost {
+  border-radius: 999px;
+  padding: 0.45rem 1.1rem;
+  font-family: inherit;
+  font-size: 0.84rem;
+  font-weight: 500;
+  color: #fff;
+  cursor: pointer;
+  transition: opacity 0.2s, background 0.2s;
+  border: none;
+  background: transparent;
+}
+.btn-ghost:hover { opacity: 0.85; background: rgba(255,255,255,0.08); }
+.btn-solid {
+  border-radius: 999px;
+  padding: 0.45rem 1.2rem;
+  font-family: inherit;
+  font-size: 0.84rem;
+  font-weight: 600;
+  background: #fff;
+  color: #0a0814;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.2s, transform 0.15s;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+.btn-solid:hover { opacity: 0.92; transform: scale(1.02); }
+.menu-toggle {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 40px; height: 40px;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  color: #fff;
+  background: rgba(255,255,255,0.06);
+}
+.mobile-nav {
+  display: none;
+  flex-direction: column;
+  padding: 1rem 1.25rem;
+  border-radius: 0 0 20px 20px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  background: rgba(10,8,20,0.95);
+  backdrop-filter: blur(20px);
+}
+.mobile-nav.open { display: flex; }
+.mobile-nav-link {
+  text-decoration: none;
+  color: var(--white-70);
+  font-size: 0.95rem;
+  font-weight: 500;
+  padding: 0.75rem 0.5rem;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+  transition: color 0.2s;
+}
+.mobile-nav-link:hover { color: #fff; }
+
+/* ===========================
+   PAGE LAYOUT
+=========================== */
+.page-wrapper {
+  position: relative;
+  z-index: 2;
+  padding-top: var(--header-height);
+}
+
+/* ===========================
+   HERO
+=========================== */
+.hero {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 5rem 1.5rem 3rem;
+  display: grid;
+  grid-template-columns: 1fr 440px;
+  gap: 4rem;
+  align-items: start;
+}
+.hero-left { padding-top: 1rem; }
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: 999px;
+  padding: 0.4rem 1.1rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--accent-2);
+  margin-bottom: 1.6rem;
+  animation: fadeInUp 0.6s 0.1s both;
+}
+.hero-badge i { font-size: 0.65rem; }
+
+.hero-title {
+  font-size: clamp(2.2rem, 5vw, 3.5rem);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+  margin-bottom: 1.2rem;
+  animation: fadeInUp 0.6s 0.2s both;
+}
+.accent-line {
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-sub {
+  color: var(--text-muted);
+  line-height: 1.75;
+  font-size: 1rem;
+  max-width: 480px;
+  margin-bottom: 1.8rem;
+  animation: fadeInUp 0.6s 0.3s both;
+}
+
+.hero-insights {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+  animation: fadeInUp 0.6s 0.35s both;
+}
+.insight-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: var(--pill-bg);
+  border: 1px solid var(--pill-border);
+  border-radius: 999px;
+  padding: 0.3rem 0.85rem;
+  font-size: 0.78rem;
+  color: var(--text-sub);
+}
+.insight-pill i { color: var(--accent); font-size: 0.7rem; }
+
+.trust-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  animation: fadeInUp 0.6s 0.4s both;
+}
+.trust-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+.trust-badge i { color: var(--accent-2); font-size: 0.75rem; }
+
+.response-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(52,211,153,0.1);
+  border: 1px solid rgba(52,211,153,0.25);
+  border-radius: 999px;
+  padding: 0.4rem 1rem;
+  font-size: 0.78rem;
+  color: var(--accent-2);
+  margin-top: 1.5rem;
+  animation: fadeInUp 0.6s 0.45s both;
+}
+.pulse-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--accent-2);
+  animation: pulse 2s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.8); }
+}
+
+/* ===========================
+   FORM CARD
+=========================== */
+.form-card {
+  border-radius: 28px;
+  padding: clamp(1.8rem, 3vw, 2.4rem) clamp(1.5rem, 3vw, 2rem);
+  animation: fadeInUp 0.6s 0.2s both;
+  position: sticky;
+  top: calc(var(--header-height) + 1.5rem);
+}
+
+.form-card-header {
+  text-align: center;
+  margin-bottom: 1.8rem;
+}
+.form-card-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.4rem;
+}
+.form-card-sub {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+.form-section-label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 1.4rem 0 0.85rem;
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+.form-section-label::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: rgba(255,255,255,0.08);
+}
+
+.form-grid { display: grid; gap: 0.85rem; }
+.form-grid-2 { grid-template-columns: 1fr 1fr; }
+
+.form-field { display: grid; gap: 0.45rem; }
+.form-field label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-sub);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.form-field label i { color: var(--accent); font-size: 0.75rem; }
+.optional-tag {
+  font-weight: 400;
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  background: var(--pill-bg);
+  border-radius: 999px;
+  padding: 0.08rem 0.45rem;
+}
+
+.form-field input,
+.form-field select,
+.form-field textarea {
+  border: 1px solid var(--input-border);
+  border-radius: 14px;
+  padding: 0.85rem 1rem;
+  background: var(--input-bg);
+  color: #fff;
+  font-size: 0.9rem;
+  font-family: inherit;
+  min-height: 46px;
+  width: 100%;
+  outline: none;
+  transition: border-color 0.25s, background 0.25s;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.form-field input::placeholder,
+.form-field textarea::placeholder { color: rgba(255,255,255,0.3); }
+.form-field input:focus,
+.form-field select:focus,
+.form-field textarea:focus {
+  border-color: var(--accent);
+  background: rgba(255,255,255,0.12);
+}
+.form-field input.error { border-color: rgba(244,114,182,0.6); }
+.field-error {
+  font-size: 0.75rem;
+  color: var(--accent-3);
+  display: none;
+  align-items: center;
+  gap: 0.3rem;
+}
+.field-error.visible { display: flex; }
+
+.form-field select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='rgba(255,255,255,0.5)' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  padding-right: 2.5rem;
+  cursor: pointer;
+}
+.form-field select option { background: #0f0b26; color: #fff; }
+
+.form-field textarea { min-height: 90px; resize: vertical; }
+
+.form-field input[type="date"]::-webkit-calendar-picker-indicator,
+.form-field input[type="time"]::-webkit-calendar-picker-indicator {
+  filter: invert(1) opacity(0.5);
+  cursor: pointer;
+}
+
+/* Submit button (matches submit-btn from global) */
+.submit-btn {
+  position: relative;
+  overflow: hidden;
+  border: none;
+  border-radius: 14px;
+  padding: 1rem 2rem;
+  font-family: inherit;
+  font-size: 0.98rem;
+  font-weight: 600;
+  color: #fff;
+  background: linear-gradient(135deg, rgba(167,139,250,0.65), rgba(52,211,153,0.55));
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: inset 0 1px 1px rgba(255,255,255,0.2), 0 8px 24px rgba(0,0,0,0.3);
+  cursor: pointer;
+  letter-spacing: 0.02em;
+  min-height: 52px;
+  width: 100%;
+  margin-top: 0.5rem;
+  transition: opacity 0.2s, transform 0.15s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+}
+.submit-btn:hover { opacity: 0.92; transform: scale(1.01); }
+.submit-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+.btn-shimmer {
+  position: absolute;
+  top: 0; left: -100%;
+  width: 60%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+  animation: shimmer 3.5s infinite;
+}
+@keyframes shimmer { 0% { left: -100%; } 60%, 100% { left: 200%; } }
+
+.form-bottom-note {
+  text-align: center;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-top: 0.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+}
+.form-bottom-note i { color: var(--accent-2); }
+
+/* Slots available indicator */
+.slots-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: rgba(251,191,36,0.1);
+  border: 1px solid rgba(251,191,36,0.25);
+  border-radius: 10px;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.78rem;
+  color: var(--accent-warm);
+  margin-bottom: 1rem;
+}
+.slots-indicator i { font-size: 0.7rem; }
+
+/* Success state */
+.form-success {
+  display: none;
+  text-align: center;
+  padding: 2rem 1rem;
+}
+.form-success.visible { display: block; }
+.success-icon {
+  width: 72px; height: 72px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(52,211,153,0.2), rgba(167,139,250,0.15));
+  border: 2px solid rgba(52,211,153,0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.2rem;
+  font-size: 1.8rem;
+  color: var(--accent-2);
+}
+.success-title { font-size: 1.4rem; font-weight: 700; margin-bottom: 0.6rem; }
+.success-sub { font-size: 0.88rem; color: var(--text-muted); line-height: 1.6; }
+
+/* ===========================
+   TRUST SECTION
+=========================== */
+.section {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 5rem 1.5rem;
+}
+.section-eyebrow {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent-2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+.section-title {
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  text-align: center;
+  margin-bottom: 0.75rem;
+}
+.section-sub {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  max-width: 520px;
+  margin: 0 auto 3rem;
+  line-height: 1.65;
+}
+
+.trust-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
+}
+.trust-card {
+  border-radius: 20px;
+  padding: 1.5rem 1.6rem;
+  transition: border-color 0.25s, transform 0.25s;
+  cursor: default;
+  border: 1px solid var(--card-border);
+  background: rgba(255,255,255,0.03);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+.trust-card:hover {
+  border-color: var(--card-border-hover);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-sm);
+}
+.trust-icon {
+  width: 44px; height: 44px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, rgba(167,139,250,0.15), rgba(52,211,153,0.1));
+  border: 1px solid rgba(255,255,255,0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+  color: var(--accent);
+}
+.trust-card h4 { font-size: 0.95rem; font-weight: 600; margin-bottom: 0.45rem; }
+.trust-card p { font-size: 0.85rem; color: var(--text-muted); line-height: 1.6; }
+
+/* ===========================
+   GUARANTEE SECTION
+=========================== */
+.guarantee-section {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 1rem 1.5rem 5rem;
+}
+.guarantee-card {
+  border-radius: 28px;
+  padding: 3rem;
+  background: linear-gradient(135deg, rgba(167,139,250,0.08) 0%, rgba(52,211,153,0.06) 50%, rgba(10,6,30,0.4) 100%);
+  border: 1px solid rgba(167,139,250,0.25);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 3rem;
+  align-items: center;
+}
+.guarantee-badge-wrap { text-align: center; }
+.guarantee-badge {
+  width: 130px; height: 130px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(167,139,250,0.2), rgba(52,211,153,0.15));
+  border: 3px solid rgba(167,139,250,0.35);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.2rem;
+  animation: spin 12s linear infinite;
+  position: relative;
+}
+.guarantee-badge::after {
+  content: "✦ 100% ASSURANCE ✦";
+  position: absolute;
+  font-size: 0.55rem;
+  letter-spacing: 0.15em;
+  color: var(--accent);
+  font-weight: 700;
+  bottom: 18px;
+  white-space: nowrap;
+}
+.guarantee-badge i { font-size: 2rem; color: var(--accent-warm); }
+.guarantee-badge-num { font-size: 1.5rem; font-weight: 800; color: var(--accent); line-height: 1; }
+.guarantee-badge-text { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.1em; color: var(--text-muted); text-transform: uppercase; }
+
+.guarantee-right h2 { font-size: 1.8rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 0.75rem; }
+.guarantee-right p { color: var(--text-muted); line-height: 1.7; margin-bottom: 1.5rem; font-size: 0.95rem; }
+.guarantee-pills { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+.guarantee-pill {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.14);
+  border-radius: 999px;
+  padding: 0.4rem 1rem;
+  font-size: 0.8rem;
+  color: var(--text-sub);
+}
+.guarantee-pill i { color: var(--accent-2); font-size: 0.75rem; }
+
+/* ===========================
+   HOW IT WORKS
+=========================== */
+.steps-wrap {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  position: relative;
+}
+.steps-wrap::before {
+  content: "";
+  position: absolute;
+  top: 35px;
+  left: 12.5%;
+  right: 12.5%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(167,139,250,0.4), rgba(52,211,153,0.4), transparent);
+}
+.step-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 0 1rem;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s, transform 0.5s;
+}
+.step-item.visible { opacity: 1; transform: translateY(0); }
+.step-num {
+  width: 70px; height: 70px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.04);
+  border: 2px solid rgba(167,139,250,0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  margin-bottom: 1.2rem;
+  position: relative;
+  z-index: 1;
+  transition: border-color 0.3s, background 0.3s;
+}
+.step-item:hover .step-num {
+  border-color: var(--accent);
+  background: rgba(167,139,250,0.1);
+}
+.step-item h4 { font-size: 0.92rem; font-weight: 600; margin-bottom: 0.45rem; }
+.step-item p { font-size: 0.82rem; color: var(--text-muted); line-height: 1.55; }
+
+/* ===========================
+   BENEFITS CARDS
+=========================== */
+.benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1rem;
+}
+.benefit-card {
+  border-radius: 22px;
+  padding: 1.6rem 1.8rem;
+  border: 1px solid var(--card-border);
+  background: rgba(255,255,255,0.02);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
+  cursor: default;
+}
+.benefit-card:hover {
+  border-color: rgba(167,139,250,0.3);
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+}
+.benefit-icon {
+  font-size: 1.8rem;
+  margin-bottom: 0.9rem;
+  display: block;
+}
+.benefit-card h3 { font-size: 1rem; font-weight: 600; margin-bottom: 0.4rem; }
+.benefit-card p { font-size: 0.85rem; color: var(--text-muted); line-height: 1.6; }
+
+/* ===========================
+   TESTIMONIALS
+=========================== */
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1rem;
+}
+.testimonial-card {
+  border-radius: 20px;
+  padding: 1.5rem 1.6rem;
+  border: 1px solid var(--card-border);
+  background: rgba(255,255,255,0.03);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  transition: border-color 0.25s, transform 0.25s;
+}
+.testimonial-card:hover { border-color: var(--card-border-hover); transform: translateY(-3px); }
+.stars {
+  display: flex;
+  gap: 0.2rem;
+  margin-bottom: 0.9rem;
+  color: var(--accent-warm);
+  font-size: 0.8rem;
+}
+.testimonial-text {
+  font-size: 0.9rem;
+  color: var(--text-sub);
+  line-height: 1.7;
+  margin-bottom: 1.2rem;
+  font-style: italic;
+}
+.testimonial-author { display: flex; align-items: center; gap: 0.75rem; }
+.author-avatar {
+  width: 38px; height: 38px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(167,139,250,0.3), rgba(52,211,153,0.25));
+  border: 1px solid rgba(255,255,255,0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--accent);
+  flex-shrink: 0;
+}
+.author-name { font-size: 0.85rem; font-weight: 600; }
+.author-detail { font-size: 0.75rem; color: var(--text-muted); }
+.outcome-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  background: rgba(52,211,153,0.1);
+  border: 1px solid rgba(52,211,153,0.2);
+  border-radius: 999px;
+  padding: 0.2rem 0.65rem;
+  font-size: 0.7rem;
+  color: var(--accent-2);
+  margin-top: 0.4rem;
+}
+
+/* ===========================
+   FAQ ACCORDION
+=========================== */
+.faq-wrap { max-width: 720px; margin: 0 auto; display: grid; gap: 0.6rem; }
+.faq-item {
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  background: rgba(255,255,255,0.02);
+  backdrop-filter: blur(10px);
+  overflow: hidden;
+  transition: border-color 0.25s;
+}
+.faq-item.open { border-color: rgba(167,139,250,0.3); }
+.faq-q {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.1rem 1.4rem;
+  cursor: pointer;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--text);
+  transition: color 0.2s;
+  list-style: none;
+  user-select: none;
+}
+.faq-q:hover { color: var(--accent); }
+.faq-q .faq-icon {
+  flex-shrink: 0;
+  width: 28px; height: 28px;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  transition: background 0.2s, transform 0.3s, color 0.2s;
+}
+.faq-item.open .faq-q .faq-icon { transform: rotate(45deg); background: rgba(167,139,250,0.2); color: var(--accent); }
+.faq-a {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s ease;
+}
+.faq-item.open .faq-a { max-height: 200px; }
+.faq-a p {
+  padding: 0 1.4rem 1.2rem;
+  font-size: 0.87rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+
+/* ===========================
+   FINAL CTA
+=========================== */
+.final-cta {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 6rem;
+}
+.cta-card {
+  border-radius: 32px;
+  padding: 5rem 3rem;
+  text-align: center;
+  background: linear-gradient(135deg, rgba(167,139,250,0.1) 0%, rgba(52,211,153,0.07) 50%, rgba(10,6,30,0.3) 100%);
+  border: 1px solid rgba(167,139,250,0.2);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  position: relative;
+  overflow: hidden;
+}
+.cta-card::before {
+  content: "";
+  position: absolute;
+  top: -80px; right: -80px;
+  width: 300px; height: 300px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(167,139,250,0.15), transparent 70%);
+  pointer-events: none;
+}
+.cta-card::after {
+  content: "";
+  position: absolute;
+  bottom: -60px; left: -60px;
+  width: 250px; height: 250px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(52,211,153,0.12), transparent 70%);
+  pointer-events: none;
+}
+.cta-eyebrow {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent-2);
+  margin-bottom: 1.2rem;
+}
+.cta-title {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  max-width: 680px;
+  margin: 0 auto 1rem;
+  line-height: 1.1;
+}
+.cta-sub {
+  color: var(--text-muted);
+  font-size: 1rem;
+  max-width: 460px;
+  margin: 0 auto 2.5rem;
+  line-height: 1.65;
+}
+.cta-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  position: relative;
+  overflow: hidden;
+  border: none;
+  border-radius: 999px;
+  padding: 1.1rem 3rem;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #fff;
+  background: linear-gradient(135deg, rgba(167,139,250,0.7), rgba(52,211,153,0.6));
+  box-shadow: 0 8px 32px rgba(167,139,250,0.3);
+  cursor: pointer;
+  letter-spacing: 0.02em;
+  transition: opacity 0.2s, transform 0.15s;
+  text-decoration: none;
+}
+.cta-btn:hover { opacity: 0.9; transform: scale(1.03); }
+
+/* ===========================
+   FOOTER
+=========================== */
+.site-footer {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 1.5rem 1rem 2.5rem;
+  color: var(--footer-text);
+  font-size: 0.8rem;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+.site-footer strong { color: rgba(255,255,255,0.55); }
+
+/* ===========================
+   SCROLL ANIMATIONS
+=========================== */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* ===========================
+   KEYFRAMES
+=========================== */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ===========================
+   DIVIDER
+=========================== */
+.section-divider {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+}
+
+/* ===========================
+   RESPONSIVE
+=========================== */
+@media (max-width: 900px) {
+  .nav-pill { display: none; }
+  .header-actions .btn-ghost { display: none; }
+  .hero { grid-template-columns: 1fr; gap: 2.5rem; padding: 3.5rem 1.5rem 2rem; }
+  .form-card { position: static; }
+  .steps-wrap { grid-template-columns: 1fr 1fr; }
+  .steps-wrap::before { display: none; }
+  .guarantee-card { grid-template-columns: 1fr; text-align: center; }
+  .guarantee-badge-wrap { display: flex; justify-content: center; }
+  .guarantee-pills { justify-content: center; }
+}
+@media (max-width: 768px) {
+  .menu-toggle { display: flex; }
+  .header-actions .btn-solid { display: none; }
+  .form-grid-2 { grid-template-columns: 1fr; }
+  .cta-card { padding: 3.5rem 1.5rem; }
+}
+@media (max-width: 600px) {
+  .steps-wrap { grid-template-columns: 1fr 1fr; gap: 2rem; }
+  .trust-grid { grid-template-columns: 1fr; }
+  .section { padding: 3.5rem 1.25rem; }
+  .guarantee-card { padding: 2rem 1.5rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- ==============================
+     BACKGROUND
+============================== -->
+<div class="bg-canvas">
+  <div class="star-field"></div>
+</div>
+
+<!-- ==============================
+     HEADER
+============================== -->
+<header class="site-header">
+  <div class="header-inner">
+    <a href="#" class="logo">
+      <svg class="logo-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 2L14.5 9H22L16 13.5L18.5 20.5L12 16L5.5 20.5L8 13.5L2 9H9.5L12 2Z" stroke="#34d399" stroke-width="1.5" stroke-linejoin="round"/>
+      </svg>
+      KundaliMan
+    </a>
+    <nav class="nav-pill liquid-glass" aria-label="Main navigation">
+      <a href="index.html" class="nav-link">Our FREE Services</a>
+
+    </nav>
+    <div class="header-actions">
+      <a href="#booking-form" class="btn-solid">CHART ANALYSIS (starting @₹51/hr)</a>
+      <button class="menu-toggle liquid-glass" id="menuToggle" aria-label="Open menu">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </div>
+  </div>
+  <nav class="mobile-nav liquid-glass" id="mobileNav" aria-label="Mobile navigation">
+   <a href="index.html" class="nav-link">Our FREE Services</a>
+
+    <div style="display:flex;gap:0.6rem;padding-top:0.9rem;border-top:1px solid rgba(255,255,255,0.08);margin-top:0.3rem;">
+      <button class="btn-ghost" style="flex:1;border:1px solid rgba(255,255,255,0.15);">Sign In</button>
+      <a href="#booking-form" class="btn-solid" style="flex:1;justify-content:center;">Book Now</a>
+    </div>
+  </nav>
+</header>
+
+<!-- ==============================
+     PAGE WRAPPER
+============================== -->
+<div class="page-wrapper">
+
+  <!-- ==============================
+       HERO + FORM
+  ============================== -->
+  <section class="hero" aria-label="Hero section" id="booking-form">
+    <div class="hero-left">
+      
+      <h1 class="hero-title">
+        Get Your Birth Chart<br>
+        <span class="accent-line">Personally Analyzed  @ Just ₹51/hr</span>
+      </h1>
+      <p class="hero-sub">
+        Receive a detailed one-on-one consultation based on your birth chart and planetary placements. Discover what the stars reveal about your unique path.
+      </p>
+      <div class="hero-insights">
+        <span class="insight-pill"><i class="fa-solid fa-briefcase"></i> Career</span>
+        <span class="insight-pill"><i class="fa-solid fa-graduation-cap"></i> Education</span>
+        <span class="insight-pill"><i class="fa-solid fa-heart"></i> Relationships</span>
+        <span class="insight-pill"><i class="fa-solid fa-ring"></i> Marriage</span>
+        <span class="insight-pill"><i class="fa-solid fa-coins"></i> Finances</span>
+        <span class="insight-pill"><i class="fa-solid fa-store"></i> Business</span>
+        <span class="insight-pill"><i class="fa-solid fa-heartbeat"></i> Health</span>
+        <span class="insight-pill"><i class="fa-solid fa-compass"></i> Life Purpose</span>
+        <span class="insight-pill"><i class="fa-solid fa-planet-ringed fa-fw"></i> Dasha Periods</span>
+      </div>
+      <div class="trust-badges">
+        <span class="trust-badge"><i class="fa-solid fa-circle-check"></i> Personal Consultation</span>
+        <span class="trust-badge"><i class="fa-solid fa-lock"></i> 100% Confidential</span>
+        <span class="trust-badge"><i class="fa-solid fa-om"></i> Vedic Astrology Based</span>
+        <span class="trust-badge"><i class="fa-solid fa-user-check"></i> Personalized Guidance</span>
+      </div>
+    </div>
+
+    <!-- FORM CARD -->
+    <div class="hero-right">
+      <div class="form-card liquid-glass" id="consultationForm">
+        <div class="slots-indicator">
+          <i class="fa-solid fa-clock"></i>
+          Only <strong style="color:var(--accent-warm);margin:0 0.25rem;">4 slots</strong> remaining this week
+        </div>
+        <div class="form-card-header">
+          <div class="form-card-title">Book Your Consultation ✦</div>
+          <div class="form-card-sub">Fill in your details — we'll confirm on WhatsApp</div>
+        </div>
+
+        <form id="mainForm" novalidate>
+          <!-- Personal Info -->
+          <div class="form-section-label"><i class="fa-solid fa-user"></i> Personal Information</div>
+          <div class="form-grid">
+            <div class="form-field">
+              <label for="fullName"><i class="fa-regular fa-id-card"></i> Full Name</label>
+              <input type="text" id="fullName" name="fullName" placeholder="Your full name" autocomplete="name" required/>
+              <span class="field-error" id="fullName-err"><i class="fa-solid fa-circle-exclamation"></i> Please enter your name</span>
+            </div>
+            <div class="form-field">
+              <label for="whatsapp"><i class="fa-brands fa-whatsapp"></i> WhatsApp Number</label>
+              <input type="tel" id="whatsapp" name="whatsapp" placeholder="+91 98765 43210" autocomplete="tel" required/>
+              <span class="field-error" id="whatsapp-err"><i class="fa-solid fa-circle-exclamation"></i> Please enter a valid number</span>
+            </div>
+            <div class="form-field">
+              <label for="email"><i class="fa-regular fa-envelope"></i> Email Address <span class="optional-tag">optional</span></label>
+              <input type="email" id="email" name="email" placeholder="your@email.com" autocomplete="email"/>
+            </div>
+          </div>
+
+          <!-- Birth Details -->
+          <div class="form-section-label"><i class="fa-solid fa-star-and-crescent"></i> Birth Details</div>
+          <div class="form-grid">
+            <div class="form-grid form-grid-2">
+              <div class="form-field">
+                <label for="dob"><i class="fa-regular fa-calendar"></i> Date of Birth</label>
+                <input type="date" id="dob" name="dob" required/>
+                <span class="field-error" id="dob-err"><i class="fa-solid fa-circle-exclamation"></i> Required</span>
+              </div>
+              <div class="form-field">
+                <label for="tob"><i class="fa-regular fa-clock"></i> Exact Time of Birth</label>
+                <input type="time" id="tob" name="tob" required/>
+                <span class="field-error" id="tob-err"><i class="fa-solid fa-circle-exclamation"></i> Required</span>
+              </div>
+            </div>
+            <div class="form-field">
+              <label for="pob"><i class="fa-solid fa-location-dot"></i> Place of Birth</label>
+              <input type="text" id="pob" name="pob" placeholder="City, State, Country" list="cities-list" autocomplete="off" required/>
+             
+              <span class="field-error" id="pob-err"><i class="fa-solid fa-circle-exclamation"></i> Please enter your birth city</span>
+            </div>
+          </div>
+
+          <!-- Consultation Details -->
+          <div class="form-section-label"><i class="fa-solid fa-calendar-check"></i> Consultation Details</div>
+          <div class="form-grid">
+            <div class="form-field">
+              <label for="consultType"><i class="fa-solid fa-list-check"></i> Consultation Type</label>
+              <select id="consultType" name="consultType" required>
+                <option value="" disabled selected>Select your focus area</option>
+                <option value="career">💼 Career Guidance</option>
+                <option value="marriage">💑 Marriage &amp; Relationships</option>
+                <option value="education">🎓 Education</option>
+                <option value="business">📈 Business &amp; Finance</option>
+                <option value="complete">🌟 Complete Life Analysis</option>
+                <option value="custom">✏️ Custom Query</option>
+              </select>
+              <span class="field-error" id="consultType-err"><i class="fa-solid fa-circle-exclamation"></i> Please select a type</span>
+            </div>
+            <div class="form-grid form-grid-2">
+              <div class="form-field">
+                <label for="prefDate"><i class="fa-solid fa-calendar-days"></i> Preferred Date</label>
+                <input type="date" id="prefDate" name="prefDate" required/>
+                <span class="field-error" id="prefDate-err"><i class="fa-solid fa-circle-exclamation"></i> Required</span>
+              </div>
+              <div class="form-field">
+                <label for="timeSlot"><i class="fa-regular fa-clock"></i> Time Slot</label>
+                <select id="timeSlot" name="timeSlot" required>
+                  <option value="" disabled selected>Pick a slot</option>
+                  <option value="7pm">7:00 PM – 8:00 PM</option>
+                  <option value="8pm">8:00 PM – 9:00 PM</option>
+                  <option value="9pm">9:00 PM – 10:00 PM</option>
+                </select>
+                <span class="field-error" id="timeSlot-err"><i class="fa-solid fa-circle-exclamation"></i> Required</span>
+              </div>
+            </div>
+            <div class="form-field">
+              <label for="consultMode"><i class="fa-solid fa-phone"></i> Consultation Mode</label>
+              <select id="consultMode" name="consultMode" required>
+                <option value="" disabled selected>How would you like to connect?</option>
+                <option value="whatsapp">📱 WhatsApp Call</option>
+                <option value="audio">📞 Audio Call</option>
+                <option value="video">🎥 Video Call</option>
+              </select>
+              <span class="field-error" id="consultMode-err"><i class="fa-solid fa-circle-exclamation"></i> Required</span>
+            </div>
+            <div class="form-field">
+              <label for="questions"><i class="fa-regular fa-message"></i> Your Questions / Concerns <span class="optional-tag">optional</span></label>
+              <textarea id="questions" name="questions" placeholder="Describe what you'd like guidance on. The more specific you are, the more precise the consultation will be..."></textarea>
+            </div>
+          </div>
+
+          <button type="submit" class="submit-btn" id="submitBtn">
+            <span class="btn-shimmer"></span>
+            <i class="fa-solid fa-calendar-check"></i>
+            <span id="submitBtnText">Book My Consultation</span>
+          </button>
+          <p class="form-bottom-note">
+            <i class="fa-solid fa-lock"></i>
+            Your details are private &amp; fully confidential. No spam.
+          </p>
+        </form>
+
+        <!-- SUCCESS STATE -->
+        <div class="form-success" id="formSuccess">
+          <div class="success-icon">✦</div>
+          <div class="success-title">Request Received! 🎉</div>
+<p class="success-sub">
+✨ Consultation Request Received
+
+Thank you for trusting us.
+
+Your birth details have been securely submitted.
+We will review your request and contact you on WhatsApp within 2 hours to confirm your consultation slot.
+
+Please keep your WhatsApp available.
+</p></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ==============================
+       WHY CLIENTS TRUST
+  ============================== -->
+  <section class="section reveal" aria-label="Trust reasons">
+    <div class="section-eyebrow"><i class="fa-solid fa-shield-halved"></i> Trusted by Hundreds</div>
+    <h2 class="section-title">Why Clients Trust This Consultation</h2>
+    <p class="section-sub">Every consultation is given with full individual attention, grounded in traditional wisdom and a commitment to genuine guidance.</p>
+    <div class="trust-grid">
+      <div class="trust-card">
+        <div class="trust-icon"><i class="fa-solid fa-chart-line"></i></div>
+        <h4>Personalized Chart Analysis</h4>
+        <p>Each reading is prepared individually for your unique birth data — no templates, no generic predictions.</p>
+      </div>
+      <div class="trust-card">
+        <div class="trust-icon" style="color:var(--accent-3);background:linear-gradient(135deg,rgba(244,114,182,0.15),rgba(167,139,250,0.1));border-color:rgba(244,114,182,0.15)"><i class="fa-solid fa-robot"></i></div>
+        <h4>No AI-Generated Predictions</h4>
+        <p>Every insight comes from a real human expert, not automated software or generic horoscope engines.</p>
+      </div>
+      <div class="trust-card">
+        <div class="trust-icon" style="color:var(--accent-2);background:linear-gradient(135deg,rgba(52,211,153,0.15),rgba(167,139,250,0.1));border-color:rgba(52,211,153,0.15)"><i class="fa-solid fa-eye"></i></div>
+        <h4>Individual Attention</h4>
+        <p>Limited slots per week ensure you receive full focus and care during your consultation session.</p>
+      </div>
+      <div class="trust-card">
+        <div class="trust-icon" style="color:var(--accent-warm);background:linear-gradient(135deg,rgba(251,191,36,0.15),rgba(167,139,250,0.08));border-color:rgba(251,191,36,0.15)"><i class="fa-solid fa-om"></i></div>
+        <h4>Traditional Vedic Astrology</h4>
+        <p>Rooted in classical Jyotish principles with thousands of years of validated planetary wisdom.</p>
+      </div>
+      <div class="trust-card">
+        <div class="trust-icon"><i class="fa-solid fa-bullseye"></i></div>
+        <h4>Actionable Guidance</h4>
+        <p>Not vague predictions — clear, practical insights and timing guidance you can act on in your daily life.</p>
+      </div>
+      <div class="trust-card">
+        <div class="trust-icon" style="color:var(--accent-3);background:linear-gradient(135deg,rgba(244,114,182,0.15),rgba(167,139,250,0.1));border-color:rgba(244,114,182,0.15)"><i class="fa-solid fa-user-secret"></i></div>
+        <h4>Strict Confidentiality</h4>
+        <p>Your birth data and personal information are never shared, stored beyond necessity, or disclosed to anyone.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ==============================
+       GUARANTEE
+  ============================== -->
+  <section class="guarantee-section reveal" aria-label="Guarantee">
+    <div class="guarantee-card">
+      <div class="guarantee-badge-wrap">
+        <div class="guarantee-badge">
+          <i class="fa-solid fa-shield-check"></i>
+          <span class="guarantee-badge-num">100%</span>
+          <span class="guarantee-badge-text">Refund</span>
+        </div>
+      </div>
+      <div class="guarantee-right">
+        <h2>100% Call Assurance <span class="accent-line">Guarantee</span></h2>
+        <p>If, for any reason, the scheduled consultation call is not received from our side, you will receive a complete refund — no questions asked, no delays, no complications. Your trust matters more than anything.</p>
+        <div class="guarantee-pills">
+          <span class="guarantee-pill"><i class="fa-solid fa-rotate-left"></i> Full Refund Protection</span>
+          <span class="guarantee-pill"><i class="fa-solid fa-lock"></i> Secure Booking</span>
+          <span class="guarantee-pill"><i class="fa-solid fa-eye"></i> Transparent Process</span>
+          <span class="guarantee-pill"><i class="fa-solid fa-handshake"></i> No Questions Asked</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ==============================
+       HOW IT WORKS
+  ============================== -->
+  <section class="section reveal" aria-label="How it works">
+    <div class="section-eyebrow"><i class="fa-solid fa-wand-sparkles"></i> The Process</div>
+    <h2 class="section-title">How It Works</h2>
+    <p class="section-sub">A simple 4-step process designed for a seamless, personal experience from booking to guidance.</p>
+    <div class="steps-wrap" id="stepsWrap">
+      <div class="step-item">
+        <div class="step-num">📋</div>
+        <h4>Step 1 — Submit</h4>
+        <p>Fill out your birth details and select your preferred consultation time slot.</p>
+      </div>
+      <div class="step-item">
+        <div class="step-num">🔭</div>
+        <h4>Step 2 — Analysis</h4>
+        <p>We study your horoscope, planetary placements, and dashas in depth.</p>
+      </div>
+      <div class="step-item">
+        <div class="step-num">📱</div>
+        <h4>Step 3 — Confirmation</h4>
+        <p>Your slot gets confirmed directly via WhatsApp message with session details.</p>
+      </div>
+      <div class="step-item">
+        <div class="step-num">✨</div>
+        <h4>Step 4 — Guidance</h4>
+        <p>Attend your scheduled session and receive your personalized astrological guidance.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ==============================
+       BENEFITS
+  ============================== -->
+  <section class="section reveal" aria-label="Consultation benefits">
+    <div class="section-eyebrow"><i class="fa-solid fa-star"></i> Areas of Guidance</div>
+    <h2 class="section-title">What You Can Discover</h2>
+    <p class="section-sub">Every consultation area is approached with depth, precision, and genuine care for your unique planetary blueprint.</p>
+    <div class="benefits-grid">
+      <div class="benefit-card">
+        <span class="benefit-icon">💼</span>
+        <h3>Career</h3>
+        <p>Understand your career strengths, opportunities, timing of professional growth, and ideal work environments based on your chart.</p>
+      </div>
+      <div class="benefit-card">
+        <span class="benefit-icon">💑</span>
+        <h3>Marriage &amp; Relationships</h3>
+        <p>Gain insight into compatibility, relationship patterns, timing of marriage, and what your 7th house reveals about your partner.</p>
+      </div>
+      <div class="benefit-card">
+        <span class="benefit-icon">🎓</span>
+        <h3>Education</h3>
+        <p>Identify your academic strengths, suitable fields of study, focus periods, and how to navigate educational challenges.</p>
+      </div>
+      <div class="benefit-card">
+        <span class="benefit-icon">💰</span>
+        <h3>Finance</h3>
+        <p>Explore your money patterns, wealth-building windows, financial risks, and the planetary periods most favorable for gains.</p>
+      </div>
+      <div class="benefit-card">
+        <span class="benefit-icon">📈</span>
+        <h3>Business</h3>
+        <p>Time your business decisions, understand your entrepreneurial strengths, and identify the right partnerships and launch windows.</p>
+      </div>
+      <div class="benefit-card">
+        <span class="benefit-icon">🌟</span>
+        <h3>Personal Growth</h3>
+        <p>Understand your life's deeper purpose, karmic lessons, hidden talents, and how to align with your highest potential.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ==============================
+       TESTIMONIALS
+  ============================== -->
+  <section class="section reveal" aria-label="Client testimonials">
+    <div class="section-eyebrow"><i class="fa-solid fa-quote-right"></i> Client Stories</div>
+    <h2 class="section-title">What Clients Are Saying</h2>
+    <p class="section-sub">Real outcomes from people who received personalized Vedic astrology consultations.</p>
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <p class="testimonial-text">"The career reading was spot on. I was at a crossroads between two job offers and the consultation helped me choose based on my dasha period. I'm now thriving in the role I chose."</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">P</div>
+          <div>
+            <div class="author-name">Priya Sharma</div>
+            <div class="author-detail">Software Engineer, Pune</div>
+            <div class="outcome-badge"><i class="fa-solid fa-circle-check"></i> Career clarity achieved</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <p class="testimonial-text">"I had doubts about my marriage timing. The consultation revealed the exact dasha and I got married 3 months later as predicted. Absolutely incredible accuracy."</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">R</div>
+          <div>
+            <div class="author-name">Rahul Mehta</div>
+            <div class="author-detail">Business Owner, Ahmedabad</div>
+            <div class="outcome-badge"><i class="fa-solid fa-circle-check"></i> Marriage timing confirmed</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <p class="testimonial-text">"I was skeptical about astrology but the consultation changed my view. The financial insights were incredibly specific and actionable. Highly recommend to anyone at a life crossroads."</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">A</div>
+          <div>
+            <div class="author-name">Ananya Iyer</div>
+            <div class="author-detail">Chartered Accountant, Bangalore</div>
+            <div class="outcome-badge"><i class="fa-solid fa-circle-check"></i> Financial guidance received</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ==============================
+       FAQ
+  ============================== -->
+  <section class="section reveal" aria-label="Frequently asked questions">
+    <div class="section-eyebrow"><i class="fa-solid fa-circle-question"></i> Questions</div>
+    <h2 class="section-title">Frequently Asked Questions</h2>
+    <p class="section-sub">Everything you need to know before booking your consultation.</p>
+    <div class="faq-wrap" id="faqWrap">
+      <div class="faq-item">
+        <div class="faq-q" role="button" tabindex="0" aria-expanded="false">
+          Is my birth time necessary?
+          <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+        </div>
+        <div class="faq-a"><p>Yes — accurate birth time significantly improves the precision of your chart reading. The Ascendant (Lagna), house positions, and dasha timings all depend on the exact time of birth. Even a 15-minute difference can shift key placements.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" role="button" tabindex="0" aria-expanded="false">
+          What if I don't know my exact birth time?
+          <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+        </div>
+        <div class="faq-a"><p>A consultation can still be conducted, though the precision of house-related predictions may be reduced. We use Chandra Lagna (Moon sign) and other techniques to provide meaningful guidance even without exact birth time.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" role="button" tabindex="0" aria-expanded="false">
+          How will the consultation happen?
+          <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+        </div>
+        <div class="faq-a"><p>Through your selected call method — WhatsApp call, audio call, or video call — at the booked time slot. You'll receive a WhatsApp message confirming the details before your session.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" role="button" tabindex="0" aria-expanded="false">
+          Is my information confidential?
+          <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+        </div>
+        <div class="faq-a"><p>Absolutely. All birth details and personal information remain completely private. Your data is never shared with third parties or used for any purpose beyond your consultation.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" role="button" tabindex="0" aria-expanded="false">
+          How long is the consultation?
+          <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+        </div>
+        <div class="faq-a"><p>Each consultation is approximately 30 to 60 minutes, depending on the complexity of your chart and the number of areas discussed. You're encouraged to prepare your key questions in advance.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" role="button" tabindex="0" aria-expanded="false">
+          What astrology system is used?
+          <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+        </div>
+        <div class="faq-a"><p>Traditional Vedic astrology (Jyotish), using the sidereal zodiac, divisional charts (Navamsha, Dashamsha, etc.), and Vimshottari dasha system for timing predictions.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" role="button" tabindex="0" aria-expanded="false">
+          What if I miss the scheduled call?
+          <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+        </div>
+        <div class="faq-a"><p>If you miss the scheduled time, please message on WhatsApp and we'll do our best to reschedule to the next available slot. Kindly notify at least 2 hours in advance if you need to reschedule.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" role="button" tabindex="0" aria-expanded="false">
+          Is there a refund policy?
+          <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+        </div>
+        <div class="faq-a"><p>If the consultation call is not received from our side for any reason, a complete refund will be issued — no questions asked. Your trust and satisfaction is our highest priority.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ==============================
+       FINAL CTA
+  ============================== -->
+  <div class="final-cta reveal">
+    <div class="cta-card">
+      <div class="cta-eyebrow">✦ Your Journey Awaits ✦</div>
+      <h2 class="cta-title">Ready to Discover What Your <span class="accent-line">Birth Chart Reveals?</span></h2>
+      <p class="cta-sub">Book your consultation today and receive personalized astrological guidance rooted in Vedic tradition.</p>
+      <a href="#booking-form" class="cta-btn">
+        <span class="btn-shimmer"></span>
+        <i class="fa-solid fa-calendar-check"></i>
+        Book My Consultation
+      </a>
+    </div>
+  </div>
+
+</div><!-- end page-wrapper -->
+
+<!-- ==============================
+     FOOTER
+============================== -->
+<footer class="site-footer">
+  <p>© 2026 <strong>KundaliMan</strong> · All Rights Reserved</p>
+</footer>
+
+<!-- ==============================
+     JAVASCRIPT
+============================== -->
+<script>
+// Mobile menu toggle
+const menuToggle = document.getElementById('menuToggle');
+const mobileNav = document.getElementById('mobileNav');
+menuToggle.addEventListener('click', () => {
+  mobileNav.classList.toggle('open');
+});
+
+// Close mobile nav on link click
+mobileNav.querySelectorAll('a').forEach(link => {
+  link.addEventListener('click', () => mobileNav.classList.remove('open'));
+});
+
+// Set min date for preferred date to today
+const prefDate = document.getElementById('prefDate');
+const today = new Date().toISOString().split('T')[0];
+prefDate.min = today;
+
+// ─── FAQ Accordion ───────────────────────────────
+document.querySelectorAll('.faq-q').forEach(q => {
+  const toggle = () => {
+    const item = q.closest('.faq-item');
+    const isOpen = item.classList.contains('open');
+    // Close all
+    document.querySelectorAll('.faq-item.open').forEach(i => {
+      i.classList.remove('open');
+      i.querySelector('.faq-q').setAttribute('aria-expanded', 'false');
+    });
+    if (!isOpen) {
+      item.classList.add('open');
+      q.setAttribute('aria-expanded', 'true');
+    }
+  };
+  q.addEventListener('click', toggle);
+  q.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); } });
+});
+
+// ─── Steps scroll animation ───────────────────────
+function animateSteps() {
+  const steps = document.querySelectorAll('.step-item');
+  steps.forEach((step, i) => {
+    setTimeout(() => step.classList.add('visible'), i * 150);
+  });
+}
+const stepsObs = new IntersectionObserver(entries => {
+  if (entries[0].isIntersecting) { animateSteps(); stepsObs.disconnect(); }
+}, { threshold: 0.3 });
+const stepsWrap = document.getElementById('stepsWrap');
+if (stepsWrap) stepsObs.observe(stepsWrap);
+
+// ─── Scroll reveal ────────────────────────────────
+const revealObs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); revealObs.unobserve(e.target); } });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+// ─── Form validation & submission ─────────────────
+const form = document.getElementById('mainForm');
+const submitBtn = document.getElementById('submitBtn');
+const submitBtnText = document.getElementById('submitBtnText');
+const formSuccess = document.getElementById('formSuccess');
+
+function showError(fieldId, show) {
+  const field = document.getElementById(fieldId);
+  const errEl = document.getElementById(fieldId + '-err');
+  if (!field || !errEl) return;
+  if (show) {
+    field.classList.add('error');
+    errEl.classList.add('visible');
+  } else {
+    field.classList.remove('error');
+    errEl.classList.remove('visible');
+  }
+}
+
+function validateForm() {
+  let valid = true;
+  const required = [
+    { id: 'fullName', check: v => v.trim().length >= 2 },
+    { id: 'whatsapp', check: v => /^[\d\s\+\-\(\)]{7,15}$/.test(v.trim()) },
+    { id: 'dob', check: v => v !== '' },
+    { id: 'tob', check: v => v !== '' },
+    { id: 'pob', check: v => v.trim().length >= 2 },
+    { id: 'consultType', check: v => v !== '' },
+    { id: 'prefDate', check: v => v !== '' },
+    { id: 'timeSlot', check: v => v !== '' },
+    { id: 'consultMode', check: v => v !== '' },
+  ];
+  required.forEach(({ id, check }) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const ok = check(el.value);
+    showError(id, !ok);
+    if (!ok) valid = false;
+  });
+  return valid;
+}
+
+// Live clear errors
+['fullName','whatsapp','dob','tob','pob','consultType','prefDate','timeSlot','consultMode'].forEach(id => {
+  const el = document.getElementById(id);
+  if (el) el.addEventListener('input', () => showError(id, false));
+  if (el) el.addEventListener('change', () => showError(id, false));
+});
+
+form.addEventListener('submit', e => {
+  e.preventDefault();
+  if (!validateForm()) return;
+
+  // Loading state
+  submitBtn.disabled = true;
+  submitBtnText.textContent = 'Booking…';
+  submitBtn.style.opacity = '0.7';
+
+  // Simulate async booking
+  setTimeout(() => {
+    form.style.display = 'none';
+    formSuccess.classList.add('visible');
+    // Scroll to confirmation
+    document.getElementById('consultationForm').scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }, 1800);
+});
+</script>
+
+// form backend here 
+<script>
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycby4pihEQfnzLEUzcPvU-pOkq0qa5duSncYPMiuOy9zGawwdW-nMjGOjnbu7ZjGlQxfL/exec";
+
+document.getElementById("mainForm").addEventListener("submit", async (e) => {
+
+    e.preventDefault();
+
+    const submitBtn = document.getElementById("submitBtn");
+    const submitBtnText = document.getElementById("submitBtnText");
+
+    submitBtn.disabled = true;
+    submitBtnText.textContent = "Submitting...";
+
+    const payload = {
+        name: document.getElementById("fullName").value,
+        whatsapp: document.getElementById("whatsapp").value,
+        email: document.getElementById("email").value,
+        dob: document.getElementById("dob").value,
+        birthTime: document.getElementById("tob").value,
+        birthPlace: document.getElementById("pob").value,
+        consultationType: document.getElementById("consultType").value,
+        preferredDate: document.getElementById("prefDate").value,
+        timeSlot: document.getElementById("timeSlot").value,
+        callMode: document.getElementById("consultMode").value,
+        question: document.getElementById("questions").value
+    };
+
+    try {
+
+        await fetch(SCRIPT_URL, {
+            method: "POST",
+            mode: "no-cors",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(payload)
+        });
+
+        document.getElementById("mainForm").style.display = "none";
+        document.getElementById("formSuccess").style.display = "block";
+
+    } catch (err) {
+
+        console.error(err);
+
+        alert("Submission failed.");
+
+        submitBtn.disabled = false;
+        submitBtnText.textContent = "Book My Consultation";
+    }
+});
+</script>
+</body>
+</html>
