@@ -57,7 +57,16 @@ function showCompat(e) {
 function showAbout(e) {
   if (e) e.preventDefault();
   setActivePage(aboutPage);
+  const aboutLink = document.querySelector('.nav-pill .nav-link[onclick*="showAbout"]');
+  if (aboutLink) aboutLink.classList.add("active");
 }
+
+/* Open the correct page when linked from another file (e.g. consult_page.html) */
+(function initFromHash() {
+  const page = window.location.hash.replace("#", "").toLowerCase();
+  if (page === "about") showAbout();
+  else if (page === "compat" || page === "compatibility") showCompat();
+})();
 
 /* Particle canvas removed — video background handles ambiance */
 
@@ -278,7 +287,7 @@ function renderShareCard(name, mulank, bhagyank, merged) {
     <div class="today-insight">
       <p><strong>Today's Insight:</strong> ${escapeHtml(todayInsight)}</p>
     </div>
-    <p class="watermark">Made with ♥ by Vipul Meshram · KundaliMan v2.0.0</p>
+    <p class="watermark">Made with ♥ by Vipul Meshram · AstroInsight v2.1.0</p>
   `;
 }
 
@@ -375,12 +384,19 @@ function swapPanels(fromEl, toEl) {
 /* ===========================
    FORM SUBMIT
 =========================== */
-form.addEventListener("submit", (event) => {
+initDateInputs(".dob-form input[placeholder='DD/MM/YYYY']");
+
+if (form) form.addEventListener("submit", (event) => {
   event.preventDefault();
-  const dob = dobInput.value;
+  const dob = dobInput.value.trim();
   if (!dob) return;
-  const dobDate = new Date(dob);
-  if (Number.isNaN(dobDate.getTime())) return;
+  const dobDate = parseDMY(dob);
+  if (!dobDate) {
+    dobInput.classList.add("error");
+    dobInput.focus();
+    return;
+  }
+  dobInput.classList.remove("error");
   const name = nameInput.value || "Mystic Seeker";
   swapPanels(inputSection, loaderSection);
   runLoaderSteps();
@@ -434,8 +450,8 @@ const compatRelations = {
 const relationScore = {FRIEND:40,NEUTRAL:25,ENEMY:10,HIGH:0,DEPENDS:20,KARMIC:30,"NO ENEMY":50};
 
 function getLoveCompatibility(dob1, dob2) {
-  const d1 = new Date(dob1), d2 = new Date(dob2);
-  if (isNaN(d1) || isNaN(d2)) return null;
+  const d1 = parseDMY(dob1), d2 = parseDMY(dob2);
+  if (!d1 || !d2) return null;
   const m1 = calculateMulank(d1), b1 = calculateBhagyank(dob1);
   const m2 = calculateMulank(d2), b2 = calculateBhagyank(dob2);
 
@@ -550,11 +566,11 @@ function renderCompatResult(nameA, nameB, result) {
 }
 
 const compatForm = document.getElementById("compatForm");
-compatForm.addEventListener("submit", (e) => {
+if (compatForm) compatForm.addEventListener("submit", (e) => {
   e.preventDefault();
-  const dob1 = document.getElementById("dobA").value;
-  const dob2 = document.getElementById("dobB").value;
-  if (!dob1 || !dob2) return;
+  const dob1 = document.getElementById("dobA").value.trim();
+  const dob2 = document.getElementById("dobB").value.trim();
+  if (!dob1 || !dob2 || !isValidDMY(dob1) || !isValidDMY(dob2)) return;
   const result = getLoveCompatibility(dob1, dob2);
   if (!result) return;
   renderCompatResult(document.getElementById("nameA").value, document.getElementById("nameB").value, result);

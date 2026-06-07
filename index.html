@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-IN">
 
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>KundaliMan — Numerology Blueprint</title>
+  <title>AstroInsight — Numerology Blueprint</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
   <link rel="stylesheet" href="style.css" />
@@ -30,8 +30,8 @@
     <div class="header-inner">
       <!-- Logo -->
       <a href="#" class="logo" onclick="showHome(event)">
-        
-        <span class="logo-text">KundaliMan</span>
+        <i class="fa-solid fa-om"></i>
+        <span class="logo-text">AstroInsight</span>
       </a>
 
       <!-- Center nav pill (desktop) -->
@@ -64,7 +64,6 @@
           class="new-badge">NEW</span></a>
       <a href="#" class="mobile-nav-link" onclick="closeMobileMenu();showAbout(event)">About</a>
       <div class="mobile-nav-ctas">
-        <button class="btn-ghost liquid-glass" onclick="closeMobileMenu();showAbout(event)">About</button>
            <button class="btn-solid" onclick="window.location.href='consult_page.html'">
     CHART ANALYSIS (starting @₹51/hr)
 </button>
@@ -100,7 +99,7 @@
               <i class="fa-solid fa-calendar-stars"></i>
               Date of Birth
             </label>
-            <input type="date" id="dobInput" required />
+            <input type="text" id="dobInput" placeholder="DD/MM/YYYY" maxlength="10" required />
           </div>
           <button type="submit" class="submit-btn">
             <span class="btn-shimmer"></span>
@@ -178,7 +177,7 @@
 
     <!-- COMPATIBILITY PAGE -->
     <div id="compatPage" class="page">
-      <section class="panel liquid-glass input-panel" style="max-width:680px;">
+      <section class="panel liquid-glass input-panel compat-panel">
         <div class="input-hero">
      
           <h1 class="hero-title">
@@ -196,7 +195,7 @@
           </div>
           <div class="form-field">
             <label><i class="fa-solid fa-calendar-stars"></i> Person A — Date of Birth</label>
-            <input type="date" id="dobA" required />
+            <input type="text" id="dobA" placeholder="DD/MM/YYYY" maxlength="10" required />
           </div>
           <div class="form-field">
             <label><i class="fa-solid fa-person-dress"></i> Person B — Name <span
@@ -205,7 +204,7 @@
           </div>
           <div class="form-field">
             <label><i class="fa-solid fa-calendar-stars"></i> Person B — Date of Birth</label>
-            <input type="date" id="dobB" required />
+            <input type="text" id="dobB" placeholder="DD/MM/YYYY" maxlength="10" required />
           </div>
           <button type="submit" class="submit-btn">
             <span class="btn-shimmer"></span>
@@ -236,21 +235,21 @@
           <p class="about-tagline">Made with <span class="heart-icon">♥</span> &amp; curiosity</p>
           <div class="version-badge liquid-glass">
             <i class="fa-solid fa-code-branch"></i>
-            Version 2.0.0
+            Version 2.1.0
           </div>
         </div>
 
         <div class="about-content">
           <div class="about-block liquid-glass">
-            <h3><i class="fa-solid fa-scroll"></i> About KundaliMan</h3>
-            <p>KundaliMan is a Vedic numerology tool that decodes your birth date into a rich personal blueprint —
+            <h3><i class="fa-solid fa-scroll"></i> About AstroInsight</h3>
+            <p>AstroInsight is a Vedic numerology tool that decodes your birth date into a rich personal blueprint —
               covering personality, career, love, finance, spirituality, and shareable aura cards.</p>
           </div>
 
           <div class="about-block liquid-glass">
             <h3><i class="fa-solid fa-user-astronaut"></i> About the Creator</h3>
             <p>Hi! I'm Vipul Meshram, a developer and creative technologist passionate about blending ancient wisdom
-              with modern tech. KundaliMan started as a personal curiosity project and grew into a full-featured app.
+              with modern tech. AstroInsight started as a personal curiosity project and grew into a full-featured app.
             </p>
             <p style="margin-top:.7rem">I build under <strong>Vipul Softwares</strong> — focused on meaningful,
               beautifully crafted digital experiences.</p>
@@ -290,6 +289,7 @@
           <div class="about-block liquid-glass changelog">
             <h3><i class="fa-solid fa-timeline"></i> Changelog</h3>
             <ul class="change-list">
+             <li><strong>v2.1.0</strong> — Now Added Our Premium Kundali Analysis Feature</li>
               <li><strong>v2.0.0</strong> — Liquid Glass UI, About page, Video background, Enhanced design</li>
               <li><strong>v1.1.0</strong> — Shareable Aura Card with download feature</li>
               <li><strong>v1.0.0</strong> — Initial launch with Mulank & Bhagyank predictions</li>
@@ -298,11 +298,11 @@
         </div>
 
         <div class="about-footer">
-          <p>© 2026 Vipul Softwares · KundaliMan · All rights reserved</p>
+          <p>© 2026 Vipul Softwares · AstroInsight · All rights reserved</p>
           <button class="submit-btn" style="margin-top:1.2rem;max-width:280px;width:100%;" onclick="showHome(event)">
             <span class="btn-shimmer"></span>
             <i class="fa-solid fa-wand-magic-sparkles"></i>
-            Try KundaliMan
+            Try AstroInsight
           </button>
         </div>
       </section>
@@ -311,10 +311,11 @@
   </main>
 
   <footer class="site-footer">
-    <p>Made with <span class="heart-icon">♥</span> by <strong>Vipul Meshram</strong> · Vipul Softwares · v2.0.0</p>
+    <p>Made with <span class="heart-icon">♥</span> by <strong>Vipul Meshram</strong> · Vipul Softwares · v2.1.0</p>
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <script src="date-utils.js"></script>
   <script src="script.js"></script>
   <script>lucide.createIcons();</script>
 </body>
