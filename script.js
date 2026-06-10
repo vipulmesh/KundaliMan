@@ -226,6 +226,32 @@ function getIdentityLine(mulank, bhagyank) {
 
 function buildCombinedInsight(mulank, bhagyank) {
   const m = predictionJson[mulank];
+
+  // When both numbers are the same, the "dual-current" framing is misleading.
+  // Instead, surface an amplified single-number narrative.
+  if (mulank === bhagyank) {
+    const amplifiedOpeners = [
+      `A rare alignment: your Mulank and Bhagyank are both ${mulank}.`,
+      `Double ${mulank} energy defines your chart — an unusually focused numerological signature.`,
+      `Your birth date carries a concentrated ${mulank} vibration across both core numbers.`
+    ];
+    const amplifiedBridges = [
+      "This amplification means your natural traits run deeper than most —",
+      "With both numbers reinforcing each other,",
+      "This doubled vibration means"
+    ];
+    const timingHints = [
+      "your strengths are magnified, but so are your growth edges. Work them consciously.",
+      "breakthroughs arrive swiftly when you act in alignment with your core nature.",
+      "your life path is unusually consistent — trust your instincts more than you doubt them."
+    ];
+    const opener = amplifiedOpeners[mulank % amplifiedOpeners.length];
+    const bridge = amplifiedBridges[mulank % amplifiedBridges.length];
+    const timing = timingHints[(mulank + 1) % timingHints.length];
+    return `${opener} ${bridge} your ${m.personalityTraits.strengths[0].toLowerCase()} and ${m.personalityTraits.strengths[1].toLowerCase()} qualities shape every area of life — career, relationships, and finances alike. ${timing}`;
+  }
+
+  // Normal dual-number narrative
   const b = predictionJson[bhagyank];
   const openers = [
     "Your chart reveals a striking dual-current:",
@@ -247,6 +273,7 @@ function buildCombinedInsight(mulank, bhagyank) {
   const timing = timingHints[(mulank + bhagyank + 1) % timingHints.length];
   return `${opener} Mulank ${mulank} gives you ${m.personalityTraits.strengths[0].toLowerCase()} and ${m.personalityTraits.strengths[1].toLowerCase()} energy, while Bhagyank ${bhagyank} adds a life-path of ${b.lifePatternInsight.toLowerCase()} ${bridge} your ${m.careerGuidance.workStyle.toLowerCase()} and keep relationships rooted in ${b.loveRelationships.behavior.toLowerCase()}; ${timing}`;
 }
+
 
 function renderShareCard(name, mulank, bhagyank, merged) {
   const displayName = name?.trim() ? name.trim() : "Mystic Seeker";
@@ -293,6 +320,47 @@ function renderShareCard(name, mulank, bhagyank, merged) {
 
 function mergeProfiles(mulank, bhagyank) {
   const m = predictionJson[mulank];
+
+  // When both numbers are identical, return the single profile as-is —
+  // no concatenation, no duplication. All Set/spread logic below is only
+  // reached when the two numbers genuinely differ.
+  if (mulank === bhagyank) {
+    return {
+      personalityTraits: {
+        strengths: [...m.personalityTraits.strengths],
+        weaknesses: [...m.personalityTraits.weaknesses]
+      },
+      careerGuidance: {
+        bestFields: [...m.careerGuidance.bestFields],
+        workStyle: m.careerGuidance.workStyle,
+        risks: m.careerGuidance.risks
+      },
+      loveRelationships: {
+        behavior: m.loveRelationships.behavior,
+        compatibilityTendency: m.loveRelationships.compatibilityTendency
+      },
+      financialBehavior: {
+        saving: m.financialBehavior.saving,
+        spending: m.financialBehavior.spending,
+        riskTaking: m.financialBehavior.riskTaking
+      },
+      lifeChallenges: m.lifeChallenges,
+      healthTendencies: m.healthTendencies,
+      luckyElements: {
+        colors: [...m.luckyElements.colors],
+        days: [...m.luckyElements.days],
+        numbers: [...m.luckyElements.numbers]
+      },
+      spiritualGuidance: {
+        deity: m.spiritualGuidance.deity,
+        practices: [...m.spiritualGuidance.practices]
+      },
+      practicalAdvice: m.practicalAdvice,
+      lifePatternInsight: m.lifePatternInsight
+    };
+  }
+
+  // Different numbers — normal dual-profile merge
   const b = predictionJson[bhagyank];
   return {
     personalityTraits: {
@@ -598,3 +666,7 @@ function doReset() {
 
 resetBtn.addEventListener("click", doReset);
 resetBtnTop.addEventListener("click", doReset);
+
+function floatingCTAClick() {
+  window.location.href = 'consult_page.html';
+}

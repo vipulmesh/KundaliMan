@@ -913,8 +913,8 @@ body {
 
 .about-avatar {
   position: relative;
-  width: 80px;
-  height: 80px;
+  width: 170px;
+  height: 170px;
   margin-bottom: 0.4rem;
 }
 .avatar-ring {
@@ -931,18 +931,18 @@ body {
   animation: spin 6s linear infinite;
 }
 .avatar-inner {
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.08);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.3rem;
-  font-weight: 700;
-  color: var(--accent-2);
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.avatar-inner img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    display: block;
 }
 
 .about-name { font-size: 1.5rem; font-weight: 700; letter-spacing: -0.02em; }
@@ -1146,3 +1146,208 @@ body {
   .share-badge { padding: 0.65rem 1rem; }
   .share-badge .value { font-size: 1.8rem; }
 }
+
+/* ==========================================
+   FLOATING CTA WIDGET
+   ========================================== */
+
+.floating-cta {
+  /* Fixed positioning — stays on screen while scrolling */
+  position: fixed;
+  bottom: 28px;
+  right: 24px;
+  z-index: 9999;
+
+  /* Shape */
+  width: 82px;
+  height: 82px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(212, 175, 55, 0.55);
+  padding: 0;
+  cursor: pointer;
+
+  /* Glassmorphism background */
+  background: rgba(14, 10, 32, 0.75);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+
+  /* Layered glow */
+  box-shadow:
+    0 0 0 1px rgba(212, 175, 55, 0.10),
+    0 0 22px rgba(212, 175, 55, 0.20),
+    0 8px 30px rgba(0, 0, 0, 0.55),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+
+  /* Layout */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+
+  /* Floating animation */
+  animation: fctaFloat 3.4s ease-in-out infinite;
+
+  /* Smooth hover transitions */
+  transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+
+  /* Accessible outline, styled to match theme */
+  outline: none;
+}
+
+/* Hover & focus state */
+.floating-cta:hover,
+.floating-cta:focus-visible {
+  animation-play-state: paused;
+  transform: translateY(-5px) scale(1.07);
+  border-color: rgba(212, 175, 55, 0.85);
+  box-shadow:
+    0 0 0 1px rgba(212, 175, 55, 0.25),
+    0 0 38px rgba(212, 175, 55, 0.38),
+    0 12px 40px rgba(0, 0, 0, 0.6),
+    inset 0 1px 0 rgba(255, 255, 255, 0.10);
+}
+
+/* Keyboard focus ring */
+.floating-cta:focus-visible {
+  outline: 2px solid rgba(212, 175, 55, 0.7);
+  outline-offset: 3px;
+}
+
+/* Active / pressed */
+.floating-cta:active {
+  transform: translateY(-2px) scale(1.02);
+}
+
+/* Floating keyframes */
+@keyframes fctaFloat {
+  0%, 100% { transform: translateY(0);    }
+  50%       { transform: translateY(-8px); }
+}
+
+/* Pulse ring */
+.fcta-pulse-ring {
+  position: absolute;
+  inset: -2px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(212, 175, 55, 0.40);
+  animation: fctaPulse 2.8s ease-out infinite;
+  pointer-events: none;
+}
+
+@keyframes fctaPulse {
+  0%   { transform: scale(1);    opacity: 0.75; }
+  100% { transform: scale(1.6);  opacity: 0;    }
+}
+
+/* Kundli SVG icon */
+.fcta-icon {
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+}
+
+/* "Chart Analysis" text */
+.fcta-text-label {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 9px;
+  font-weight: 600;
+  color: rgba(212, 175, 55, 0.88);
+  letter-spacing: 0.05em;
+  line-height: 1;
+  text-align: center;
+}
+
+/* "₹51" price */
+.fcta-price-label {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: #d4af37;
+  letter-spacing: 0.02em;
+  line-height: 1;
+}
+
+/* Tooltip */
+.fcta-tooltip {
+  position: absolute;
+  right: calc(100% + 14px);
+  top: 50%;
+  transform: translateY(-50%);
+
+  background: rgba(12, 8, 28, 0.95);
+  border: 1px solid rgba(212, 175, 55, 0.38);
+  color: rgba(255, 255, 255, 0.9);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12.5px;
+  font-weight: 500;
+  white-space: nowrap;
+  padding: 8px 14px;
+  border-radius: 8px;
+
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.5);
+}
+
+/* Tooltip arrow pointing right */
+.fcta-tooltip::after {
+  content: '';
+  position: absolute;
+  left: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  border: 6px solid transparent;
+  border-left-color: rgba(212, 175, 55, 0.38);
+}
+
+/* Show tooltip on hover / focus */
+.floating-cta:hover .fcta-tooltip,
+.floating-cta:focus-visible .fcta-tooltip {
+  opacity: 1;
+}
+
+/* ── Mobile responsive ── */
+@media (max-width: 480px) {
+  .floating-cta {
+    width: 72px;
+    height: 72px;
+    bottom: 20px;
+    right: 16px;
+  }
+  .fcta-icon {
+    width: 24px;
+    height: 24px;
+  }
+  .fcta-text-label {
+    font-size: 8px;
+  }
+  .fcta-price-label {
+    font-size: 11px;
+  }
+  /* On mobile, tooltip appears above instead of to the side */
+  .fcta-tooltip {
+    right: auto;
+    left: 50%;
+    top: auto;
+    bottom: calc(100% + 12px);
+    transform: translateX(-50%);
+    white-space: normal;
+    width: 160px;
+    text-align: center;
+  }
+  .fcta-tooltip::after {
+    left: 50%;
+    top: 100%;
+    transform: translateX(-50%);
+    border: 6px solid transparent;
+    border-top-color: rgba(212, 175, 55, 0.38);
+    border-left-color: transparent;
+  }
+}
+
+/* ==========================================
+   END FLOATING CTA WIDGET
+   ========================================== */

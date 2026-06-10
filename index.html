@@ -17,7 +17,7 @@
 
   <!-- BACKGROUND VIDEO -->
   <div class="video-container">
-    <video id="bgVideo" autoplay loop muted playsinline>
+    <video id="bgVideo" autoplay muted playsinline>
       <source
         src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260511_230229_7c9bc431-46cf-489a-948d-e8144d8eb5d4.mp4"
         type="video/mp4" />
@@ -36,10 +36,10 @@
 
       <!-- Center nav pill (desktop) -->
       <nav class="nav-pill liquid-glass" id="desktopNav">
-        <a href="#" class="nav-link active" onclick="showHome(event)">Home</a>
+        <a href="#" class="nav-link active" onclick="showHome(event)">DOB Analysis  <span class="new-badge">NEW</span></a>
 
         <a href="#" class="nav-link" onclick="showCompat(event)">
-          Compatibility <span class="new-badge">NEW</span>
+          Love Compatibility <span class="new-badge">NEW</span>
         </a>
         <a href="#" class="nav-link" onclick="showAbout(event)">About</a>
       </nav>
@@ -59,8 +59,9 @@
 
     <!-- Mobile nav panel -->
     <div class="mobile-nav liquid-glass" id="mobileNav">
-      <a href="#" class="mobile-nav-link" onclick="closeMobileMenu();showHome(event)">Home</a>
-      <a href="#" class="mobile-nav-link" onclick="closeMobileMenu();showCompat(event)">💞 Compatibility <span
+      <a href="#" class="mobile-nav-link" onclick="closeMobileMenu();showHome(event)">DOB Analysis <span
+          class="new-badge">NEW</span></a>
+      <a href="#" class="mobile-nav-link" onclick="closeMobileMenu();showCompat(event)">Love Compatibility <span
           class="new-badge">NEW</span></a>
       <a href="#" class="mobile-nav-link" onclick="closeMobileMenu();showAbout(event)">About</a>
       <div class="mobile-nav-ctas">
@@ -227,15 +228,17 @@
     <div id="aboutPage" class="page">
       <section class="panel liquid-glass about-panel">
         <div class="about-hero">
-          <div class="about-avatar">
-            <div class="avatar-ring"></div>
-            <div class="avatar-inner">VM</div>
-          </div>
+        <div class="about-avatar">
+    <div class="avatar-ring"></div>
+    <div class="avatar-inner">
+        <img src="assets/vipul_web.jpeg" alt="Vipul Meshram">
+    </div>
+</div>
           <h2 class="about-name">Vipul Meshram</h2>
           <p class="about-tagline">Made with <span class="heart-icon">♥</span> &amp; curiosity</p>
           <div class="version-badge liquid-glass">
             <i class="fa-solid fa-code-branch"></i>
-            Version 2.1.0
+            Version 2.2.0
           </div>
         </div>
 
@@ -248,11 +251,13 @@
 
           <div class="about-block liquid-glass">
             <h3><i class="fa-solid fa-user-astronaut"></i> About the Creator</h3>
-            <p>Hi! I'm Vipul Meshram, a developer and creative technologist passionate about blending ancient wisdom
+                          <p>"With gratitude to God for His blessings, and to my loved ones whose faith, love, and support made this journey possible." ✨</p>
+            <p style="margin-top:.7rem">Hi! I'm Vipul Meshram, a developer and creative technologist passionate about blending ancient wisdom
               with modern tech. AstroInsight started as a personal curiosity project and grew into a full-featured app.
             </p>
             <p style="margin-top:.7rem">I build under <strong>Vipul Softwares</strong> — focused on meaningful,
               beautifully crafted digital experiences.</p>
+
           </div>
 
           <div class="about-block liquid-glass">
@@ -289,6 +294,7 @@
           <div class="about-block liquid-glass changelog">
             <h3><i class="fa-solid fa-timeline"></i> Changelog</h3>
             <ul class="change-list">
+           <li><strong>v2.2.0</strong> —  Fixed duplicate results when Mulank and Bhagyank are the same; improved video background looping. <em>(Special thanks for bug reports: Karan Jagtap & Vishakha)</em></li>
              <li><strong>v2.1.0</strong> — Now Added Our Premium Kundali Analysis Feature</li>
               <li><strong>v2.0.0</strong> — Liquid Glass UI, About page, Video background, Enhanced design</li>
               <li><strong>v1.1.0</strong> — Shareable Aura Card with download feature</li>
@@ -311,13 +317,52 @@
   </main>
 
   <footer class="site-footer">
-    <p>Made with <span class="heart-icon">♥</span> by <strong>Vipul Meshram</strong> · Vipul Softwares · v2.1.0</p>
+    <p>Made with <span class="heart-icon">♥</span> by <strong>Vipul Meshram</strong> · Vipul Softwares · v2.2.0</p>
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
   <script src="date-utils.js"></script>
   <script src="script.js"></script>
   <script>lucide.createIcons();</script>
+
+  <!-- ==========================================
+     FLOATING CTA — insert just before </body>
+     ========================================== -->
+<button
+  id="floatingCTA"
+  class="floating-cta"
+  aria-label="Get Personal Chart Analysis for ₹51"
+  title="Get Personal Chart Analysis for ₹51"
+  onclick="floatingCTAClick()"
+  onkeydown="if(event.key==='Enter'||event.key===' ')floatingCTAClick()"
+>
+  <span class="fcta-pulse-ring" aria-hidden="true"></span>
+
+  <!-- Kundli / horoscope chart icon -->
+  <svg class="fcta-icon" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <circle cx="15" cy="15" r="13.5" stroke="#d4af37" stroke-width="1.2" stroke-dasharray="2.5 2"/>
+    <rect x="7" y="7" width="16" height="16" stroke="#d4af37" stroke-width="1" rx="0.5"/>
+    <line x1="7" y1="7" x2="23" y2="23" stroke="#d4af37" stroke-width="0.8" stroke-opacity="0.6"/>
+    <line x1="23" y1="7" x2="7" y2="23" stroke="#d4af37" stroke-width="0.8" stroke-opacity="0.6"/>
+    <circle cx="15" cy="15" r="1.6" fill="#d4af37"/>
+    <circle cx="11" cy="11.5" r="1" fill="#d4af37" opacity="0.7"/>
+    <circle cx="19.5" cy="12" r="0.8" fill="#d4af37" opacity="0.55"/>
+    <circle cx="19" cy="19.5" r="1" fill="#d4af37" opacity="0.65"/>
+  </svg>
+
+  <span class="fcta-text-label" aria-hidden="true">Chart Analysis</span>
+  <span class="fcta-price-label" aria-hidden="true">₹51</span>
+
+  <!-- Tooltip (shown on hover via CSS) -->
+  <span class="fcta-tooltip" role="tooltip" id="fctaTooltip">
+    Get Personal Chart Analysis for ₹51
+  </span>
+</button>
+<!-- ==========================================
+     END FLOATING CTA
+     ========================================== -->
 </body>
+
+
 
 </html>
