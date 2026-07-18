@@ -78,67 +78,44 @@
   max-width: 520px;
   margin-bottom: 1rem;
 }
-.price-highlight {
+.mobile-nav-ctas .btn-ghost { text-decoration: none; display: inline-flex; align-items: center; justify-content: center; }
+
+.hero-note {
   display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 0.75rem 1.25rem;
+  align-items: flex-start;
+  gap: 0.9rem;
   max-width: 520px;
   margin-bottom: 1.75rem;
-  padding: 1rem 1.25rem;
-  background: rgba(232,184,74,0.12);
-  border: 1px solid rgba(232,184,74,0.35);
+  padding: 1rem 1.1rem;
+  background: linear-gradient(145deg, rgba(255,255,255,0.06), rgba(157,133,232,0.06));
+  border: 1px solid rgba(157,133,232,0.18);
   border-radius: var(--radius-md);
+  box-shadow: 0 18px 48px rgba(0,0,0,0.22);
 }
-.price-highlight-label {
-  font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+.hero-note-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(232,184,74,0.14);
+  border: 1px solid rgba(232,184,74,0.24);
   color: var(--accent-warm);
+  flex-shrink: 0;
 }
-.price-highlight-amount {
-  font-family: var(--font-display);
-  font-size: clamp(2.4rem, 8vw, 3.25rem);
-  font-weight: 700;
-  color: var(--accent-warm);
-  line-height: 1;
-}
-.price-highlight-amount span {
-  font-family: var(--font-ui);
-  font-size: 1rem;
+.hero-note strong {
+  display: block;
+  font-size: 0.95rem;
   font-weight: 600;
-  color: var(--text-sub);
-  margin-left: 0.15rem;
+  margin-bottom: 0.2rem;
 }
-.price-highlight-note {
-  font-size: 0.82rem;
+.hero-note span {
+  display: block;
   color: var(--text-muted);
-  flex: 1 1 140px;
-  line-height: 1.4;
+  font-size: 0.85rem;
+  line-height: 1.5;
 }
-
-.form-price-tag {
-  display: inline-flex;
-  align-items: baseline;
-  gap: 0.2rem;
-  margin-top: 0.5rem;
-  padding: 0.35rem 0.75rem;
-  background: rgba(232,184,74,0.15);
-  border: 1px solid rgba(232,184,74,0.35);
-  border-radius: var(--radius-sm);
-  font-size: 0.8rem;
-  color: var(--text-sub);
-}
-.form-price-tag strong {
-  font-family: var(--font-display);
-  font-size: 1.35rem;
-  font-weight: 700;
-  color: var(--accent-warm);
-  line-height: 1;
-}
-.price-highlight--cta { max-width: 100%; margin-bottom: 1.5rem; }
-.mobile-nav-ctas .btn-ghost { text-decoration: none; display: inline-flex; align-items: center; justify-content: center; }
 
 .hero-insights {
   display: grid;
@@ -182,6 +159,237 @@
 .pulse-dot { display: none; }
 
 /* ===========================
+   CONSULTATION PLANS
+=========================== */
+.pricing-section {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 2.5rem 1.25rem 0.5rem;
+}
+.pricing-header {
+  margin-bottom: 1.5rem;
+}
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+.pricing-card {
+  position: relative;
+  border-radius: 24px;
+  padding: 1.35rem;
+  background:
+    radial-gradient(circle at top right, rgba(157,133,232,0.12), transparent 38%),
+    radial-gradient(circle at bottom left, rgba(45,184,138,0.08), transparent 42%),
+    var(--bg-card);
+  border: 1px solid rgba(255,255,255,0.1);
+  box-shadow: 0 18px 40px rgba(0,0,0,0.28);
+  backdrop-filter: blur(16px) saturate(1.15);
+  -webkit-backdrop-filter: blur(16px) saturate(1.15);
+  overflow: hidden;
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+  display: grid;
+  gap: 1rem;
+  min-height: 100%;
+  cursor: pointer;
+}
+.pricing-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.08), transparent 35%, rgba(255,255,255,0.03));
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  pointer-events: none;
+}
+.pricing-card:hover,
+.pricing-card:focus-within {
+  transform: translateY(-6px);
+  border-color: rgba(157,133,232,0.28);
+  box-shadow: 0 24px 60px rgba(0,0,0,0.4);
+}
+.pricing-card:hover::before,
+.pricing-card:focus-within::before { opacity: 1; }
+.pricing-card.selected {
+  border-color: rgba(45,184,138,0.35);
+  box-shadow: 0 24px 60px rgba(0,0,0,0.4), 0 0 0 1px rgba(45,184,138,0.12), 0 0 40px rgba(45,184,138,0.12);
+}
+.pricing-card--featured {
+  transform: translateY(-10px);
+}
+.pricing-card--featured:hover,
+.pricing-card--featured:focus-within {
+  transform: translateY(-14px);
+}
+.pricing-card--premium {
+  border: 1px solid rgba(232,184,74,0.36);
+  background:
+    radial-gradient(circle at top right, rgba(232,184,74,0.18), transparent 34%),
+    radial-gradient(circle at bottom left, rgba(157,133,232,0.1), transparent 42%),
+    linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.035));
+  box-shadow: 0 20px 58px rgba(0,0,0,0.35), 0 0 0 1px rgba(232,184,74,0.08);
+}
+.pricing-card--premium.selected {
+  border-color: rgba(232,184,74,0.55);
+  box-shadow: 0 24px 70px rgba(0,0,0,0.44), 0 0 0 1px rgba(232,184,74,0.15), 0 0 44px rgba(232,184,74,0.14);
+}
+.pricing-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+.pricing-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent);
+  background: rgba(157,133,232,0.12);
+  border: 1px solid rgba(157,133,232,0.2);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.08);
+}
+.pricing-icon--rose {
+  color: #f08fc0;
+  background: rgba(217,111,168,0.14);
+  border-color: rgba(217,111,168,0.22);
+}
+.pricing-icon--gold {
+  color: var(--accent-warm);
+  background: rgba(232,184,74,0.14);
+  border-color: rgba(232,184,74,0.26);
+}
+.pricing-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.28rem 0.7rem;
+  border-radius: 999px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.pricing-badge--muted {
+  color: var(--white-70);
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+}
+.pricing-badge--popular {
+  color: #f2cdea;
+  background: rgba(217,111,168,0.12);
+  border: 1px solid rgba(217,111,168,0.24);
+}
+.pricing-badge--premium {
+  color: #f9e2a4;
+  background: rgba(232,184,74,0.12);
+  border: 1px solid rgba(232,184,74,0.24);
+}
+.pricing-card-title-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.pricing-card-kicker {
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent-2);
+  margin-bottom: 0.3rem;
+}
+.pricing-card--premium .pricing-card-kicker { color: var(--accent-warm); }
+.pricing-card h3 {
+  font-family: var(--font-display);
+  font-size: 1.55rem;
+  font-weight: 600;
+  line-height: 1.1;
+}
+.pricing-card-price {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--white-90);
+  line-height: 1;
+}
+.pricing-card--premium .pricing-card-price {
+  color: #ffe7ae;
+}
+.pricing-card-copy {
+  color: var(--text-muted);
+  font-size: 0.92rem;
+  line-height: 1.6;
+}
+.pricing-list {
+  list-style: none;
+  display: grid;
+  gap: 0.55rem;
+}
+.pricing-list li {
+  position: relative;
+  padding-left: 1.15rem;
+  color: var(--text-sub);
+  font-size: 0.88rem;
+  line-height: 1.5;
+}
+.pricing-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.6em;
+  width: 0.42rem;
+  height: 0.42rem;
+  border-radius: 999px;
+  background: var(--accent-2);
+  box-shadow: 0 0 0 4px rgba(45,184,138,0.09);
+}
+.pricing-card--premium .pricing-list li::before {
+  background: var(--accent-warm);
+  box-shadow: 0 0 0 4px rgba(232,184,74,0.1);
+}
+.plan-cta {
+  width: 100%;
+  justify-content: center;
+}
+.plan-cta.btn-solid {
+  padding: 0.85rem 1rem;
+  font-size: 0.88rem;
+}
+.pricing-card--featured .plan-cta.btn-solid {
+  background: linear-gradient(135deg, #ea7cae, #b889f6);
+  color: #fff;
+  box-shadow: 0 14px 32px rgba(157,133,232,0.2);
+}
+.pricing-card--premium .plan-cta.btn-solid {
+  background: linear-gradient(135deg, #f6d36c, #d9a93d);
+  color: #1a1208;
+  box-shadow: 0 16px 34px rgba(232,184,74,0.16);
+}
+.pricing-trust-strip {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem 1rem;
+  margin-top: 1rem;
+}
+.pricing-trust-strip span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.42rem 0.8rem;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.08);
+  color: var(--text-sub);
+  font-size: 0.8rem;
+  backdrop-filter: blur(10px);
+}
+.pricing-trust-strip i { color: var(--accent-2); }
+
+/* ===========================
    FORM CARD
 =========================== */
 .form-card {
@@ -206,6 +414,19 @@
 .form-card-sub {
   font-size: 0.875rem;
   color: var(--text-muted);
+}
+.selected-plan-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-top: 0.65rem;
+  padding: 0.35rem 0.7rem;
+  border-radius: 999px;
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: var(--accent-2);
+  background: rgba(45,184,138,0.1);
+  border: 1px solid rgba(45,184,138,0.2);
 }
 
 .form-section-label {
@@ -699,6 +920,8 @@
   }
   .hero-right { order: -1; }
   .form-card { position: static; }
+  .pricing-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .pricing-card--premium { grid-column: 1 / -1; }
   .hero-insights { grid-template-columns: repeat(2, 1fr); max-width: none; }
   .trust-badges { max-width: none; }
   .benefits-grid,
@@ -710,6 +933,9 @@
 }
 
 @media (max-width: 768px) {
+  .pricing-grid { grid-template-columns: 1fr; }
+  .pricing-card--premium,
+  .pricing-card--featured { grid-column: auto; transform: none; }
   .form-grid-2 { grid-template-columns: 1fr; }
   .trust-grid { grid-template-columns: 1fr; }
   .benefits-grid,
@@ -720,12 +946,11 @@
 
 @media (max-width: 480px) {
   .hero { padding: 1.25rem 1rem 2rem; }
-  .price-highlight {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.5rem;
-    padding: 0.9rem 1rem;
-  }
+  .pricing-section { padding: 2rem 1rem 0.25rem; }
+  .pricing-card { padding: 1.15rem; border-radius: 20px; }
+  .pricing-card-title-row { flex-direction: column; gap: 0.45rem; }
+  .pricing-card-price { font-size: 1.75rem; }
+  .hero-note { padding: 0.9rem 0.95rem; }
   .hero-insights { grid-template-columns: 1fr 1fr; gap: 0.4rem; }
   .insight-pill { font-size: 0.75rem; padding: 0.5rem; }
   .trust-badges { grid-template-columns: 1fr; }
@@ -761,7 +986,7 @@
       <a href="index.html#about" class="nav-link">About</a>
     </nav>
     <div class="header-actions">
-      <a href="#booking-form" class="btn-solid">CHART ANALYSIS (starting @₹51/hr)</a>
+      <a href="#booking-form" class="btn-solid">Choose Your Plan</a>
       <button class="menu-toggle liquid-glass" id="menuToggle" aria-label="Open menu">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
       </button>
@@ -772,7 +997,7 @@
     <a href="index.html#about" class="nav-link">About</a>
     <div class="mobile-nav-ctas">
       <a href="index.html#about" class="btn-ghost">About</a>
-      <a href="#booking-form" class="btn-solid">Book Now</a>
+      <a href="#booking-form" class="btn-solid">Choose Your Plan</a>
     </div>
   </nav>
 </header>
@@ -781,6 +1006,92 @@
      PAGE WRAPPER
 ============================== -->
 <div class="page-wrapper">
+
+  <!-- ==============================
+       CONSULTATION PLANS
+  ============================== -->
+  <section class="pricing-section reveal" aria-label="Choose Your Consultation Plan">
+    <div class="pricing-header">
+      <div class="section-eyebrow">Premium consultation options</div>
+      <h2 class="section-title">Choose Your Consultation Plan</h2>
+      <p class="section-sub">Pick the depth of guidance you need. Every session is human-led, confidential, and handled through a secure booking flow.</p>
+    </div>
+
+    <div class="pricing-grid">
+      <article class="pricing-card" data-plan="starter" data-consult-type="custom" data-plan-label="Starter · ₹49">
+        <div class="pricing-card-top">
+          <div class="pricing-icon" aria-hidden="true"><i class="fa-solid fa-phone-volume"></i></div>
+          <span class="pricing-badge pricing-badge--muted">Quick clarity</span>
+        </div>
+        <div class="pricing-card-title-row">
+          <div>
+            <p class="pricing-card-kicker">Starter</p>
+            <h3>Quick Consultation</h3>
+          </div>
+          <div class="pricing-card-price">₹49</div>
+        </div>
+        <p class="pricing-card-copy">20-minute Voice/WhatsApp Call</p>
+        <ul class="pricing-list">
+          <li>Ask up to 3 questions</li>
+          <li>Personalized guidance</li>
+          <li>Ideal for quick doubts</li>
+        </ul>
+        <button type="button" class="plan-cta btn-solid">Book ₹49 Session</button>
+      </article>
+
+      <article class="pricing-card pricing-card--featured" data-plan="popular" data-consult-type="complete" data-plan-label="Most Popular · ₹99">
+        <div class="pricing-card-top">
+          <div class="pricing-icon pricing-icon--rose" aria-hidden="true"><i class="fa-solid fa-file-lines"></i></div>
+          <span class="pricing-badge pricing-badge--popular">MOST POPULAR</span>
+        </div>
+        <div class="pricing-card-title-row">
+          <div>
+            <p class="pricing-card-kicker">Most Popular</p>
+            <h3>Personalized Kundali Report</h3>
+          </div>
+          <div class="pricing-card-price">₹99</div>
+        </div>
+        <p class="pricing-card-copy">Detailed PDF Report with practical next steps.</p>
+        <ul class="pricing-list">
+          <li>Personalized Remedies</li>
+          <li>Career, Education &amp; Finance Analysis</li>
+          <li>Marriage &amp; Life Guidance</li>
+          <li>Lifetime PDF Access</li>
+        </ul>
+        <button type="button" class="plan-cta btn-solid">Get My Report</button>
+      </article>
+
+      <article class="pricing-card pricing-card--premium" data-plan="premium" data-consult-type="marriage" data-plan-label="Premium · ₹199">
+        <div class="pricing-card-top">
+          <div class="pricing-icon pricing-icon--gold" aria-hidden="true"><i class="fa-solid fa-gem"></i></div>
+          <span class="pricing-badge pricing-badge--premium">Premium</span>
+        </div>
+        <div class="pricing-card-title-row">
+          <div>
+            <p class="pricing-card-kicker">Premium</p>
+            <h3>Love &amp; Relationship Consultation</h3>
+          </div>
+          <div class="pricing-card-price">₹199</div>
+        </div>
+        <p class="pricing-card-copy">Deep-dive clarity for relationship questions and emotional turning points.</p>
+        <ul class="pricing-list">
+          <li>Relationship Analysis</li>
+          <li>Compatibility Guidance</li>
+          <li>Existing GF/BF Issues</li>
+          <li>Breakup &amp; Reconciliation Guidance</li>
+          <li>Practical Remedies</li>
+          <li>30–45 min Consultation</li>
+        </ul>
+        <button type="button" class="plan-cta btn-solid">Book Premium Session</button>
+      </article>
+    </div>
+
+    <div class="pricing-trust-strip" aria-label="Booking trust indicators">
+      <span><i class="fa-solid fa-lock"></i> 100% Confidential</span>
+      <span><i class="fa-solid fa-user-tie"></i> Human Astrologer</span>
+      <span><i class="fa-solid fa-shield-halved"></i> Secure Payment</span>
+    </div>
+  </section>
 
   <!-- ==============================
        HERO + FORM
@@ -796,10 +1107,12 @@
       <p class="hero-sub">
         Share your birth details and book a private call. We study your chart beforehand and walk you through career, relationships, timing, and whatever you need clarity on.
       </p>
-      <div class="price-highlight" aria-label="Consultation pricing">
-        <span class="price-highlight-label">Consultation charges</span>
-        <span class="price-highlight-amount">₹51<span>/hr</span></span>
-        <span class="price-highlight-note">One-on-one Vedic chart reading — pay only for the time you need.</span>
+      <div class="hero-note" aria-label="Consultation plans note">
+        <div class="hero-note-icon" aria-hidden="true"><i class="fa-solid fa-stars"></i></div>
+        <div>
+          <strong>Three focused options, one trusted reader.</strong>
+          <span>Choose a quick call, a detailed PDF, or a premium relationship consultation and the form will update instantly.</span>
+        </div>
       </div>
       <div class="hero-insights">
         <span class="insight-pill"><i class="fa-solid fa-briefcase"></i> Career</span>
@@ -830,10 +1143,11 @@
         <div class="form-card-header">
           <div class="form-card-title">Book a session</div>
           <div class="form-card-sub">Takes about 2 minutes. We'll reach out on WhatsApp to confirm.</div>
-          <div class="form-price-tag">Starting at <strong>₹51</strong>/hr</div>
+          <div class="selected-plan-chip" id="selectedPlanChip">No plan selected yet</div>
         </div>
 
         <form id="mainForm" novalidate>
+          <input type="hidden" id="selectedPlan" name="selectedPlan" value=""/>
           <!-- Personal Info -->
           <div class="form-section-label"><i class="fa-solid fa-user"></i> Personal Information</div>
           <div class="form-grid">
@@ -1143,7 +1457,7 @@ Please keep WhatsApp handy so we can reach you.</p></div>
           How will the consultation happen?
           <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
         </div>
-        <div class="faq-a"><p>Through your selected call method — WhatsApp call, audio call, or  — at the booked time slot. You'll receive a WhatsApp message confirming the details before your session.</p></div>
+        <div class="faq-a"><p>Through your selected call method — WhatsApp call or audio call — at the booked time slot. You'll receive a WhatsApp message confirming the details before your session.</p></div>
       </div>
       <div class="faq-item">
         <div class="faq-q" role="button" tabindex="0" aria-expanded="false">
@@ -1157,7 +1471,7 @@ Please keep WhatsApp handy so we can reach you.</p></div>
           How long is the consultation?
           <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
         </div>
-        <div class="faq-a"><p>Each consultation is approximately 30 to 60 minutes, depending on the complexity of your chart and the number of areas discussed. You're encouraged to prepare your key questions in advance.</p></div>
+        <div class="faq-a"><p>It depends on the plan you choose: the Starter session runs about 20 minutes, the Kundali Report gives you a detailed PDF, and the Premium relationship consultation typically runs 30 to 45 minutes. You're encouraged to prepare your key questions in advance.</p></div>
       </div>
       <div class="faq-item">
         <div class="faq-q" role="button" tabindex="0" aria-expanded="false">
@@ -1192,14 +1506,14 @@ Please keep WhatsApp handy so we can reach you.</p></div>
     <div class="cta-card">
       <h2 class="cta-title">Still have questions about your chart?</h2>
       <p class="cta-sub">Fill in your birth details above and pick a time that works.</p>
-      <div class="price-highlight price-highlight--cta">
-        <span class="price-highlight-label">Session rate</span>
-        <span class="price-highlight-amount">₹51<span>/hr</span></span>
-        <span class="price-highlight-note">No hidden fees. Confirm your slot on WhatsApp before the call.</span>
+      <div class="pricing-trust-strip" style="margin-top: 1.25rem; margin-bottom: 1.5rem;">
+        <span><i class="fa-solid fa-lock"></i> 100% Confidential</span>
+        <span><i class="fa-solid fa-user-tie"></i> Human Astrologer</span>
+        <span><i class="fa-solid fa-shield-halved"></i> Secure Payment</span>
       </div>
       <a href="#booking-form" class="cta-btn btn-solid">
         <i class="fa-solid fa-calendar-check"></i>
-        Book My Consultation
+        Choose Your Plan
       </a>
     </div>
   </div>
@@ -1319,6 +1633,47 @@ function validateForm() {
   if (el) el.addEventListener('change', () => showError(id, false));
 });
 
+const planCards = document.querySelectorAll('.pricing-card');
+const selectedPlanInput = document.getElementById('selectedPlan');
+const selectedPlanChip = document.getElementById('selectedPlanChip');
+const consultTypeField = document.getElementById('consultType');
+const consultModeField = document.getElementById('consultMode');
+const consultationForm = document.getElementById('consultationForm');
+
+function selectConsultationPlan(planCard, scrollToForm = true) {
+  if (!planCard) return;
+
+  const planLabel = planCard.dataset.planLabel || 'Selected plan';
+  const consultType = planCard.dataset.consultType || '';
+
+  planCards.forEach(card => card.classList.toggle('selected', card === planCard));
+
+  if (selectedPlanInput) selectedPlanInput.value = planLabel;
+  if (selectedPlanChip) selectedPlanChip.textContent = planLabel;
+  if (consultTypeField && consultType) consultTypeField.value = consultType;
+  if (consultModeField && !consultModeField.value) consultModeField.value = 'whatsapp';
+
+  if (scrollToForm && consultationForm) {
+    consultationForm.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+}
+
+planCards.forEach(card => {
+  card.addEventListener('click', () => selectConsultationPlan(card));
+  const cta = card.querySelector('.plan-cta');
+  if (cta) {
+    cta.addEventListener('click', (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      selectConsultationPlan(card);
+    });
+  }
+});
+
+if (planCards[0]) {
+  selectConsultationPlan(planCards[0], false);
+}
+
 </script>
 
 <script>
@@ -1344,6 +1699,7 @@ document.getElementById("mainForm").addEventListener("submit", async (e) => {
         birthTime: document.getElementById("tob").value,
         birthPlace: document.getElementById("pob").value,
         consultationType: document.getElementById("consultType").value,
+        selectedPlan: document.getElementById("selectedPlan").value,
         preferredDate: document.getElementById("prefDate").value,
         timeSlot: document.getElementById("timeSlot").value,
         callMode: document.getElementById("consultMode").value,
